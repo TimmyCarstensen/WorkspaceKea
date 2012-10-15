@@ -1,0 +1,16 @@
+I'm not familiar with
+this site but I think anything
+with italic blue text (infilename 
+and process(str)" is meant to be
+pseudocode, aka replaced with the 
+actual code for your specific needs.
+
+The "process(str)" is basically pseudocode
+for whatever you want to do with the incoming
+text; literally it means "here is where you process the string.
+
+Replace "process(str);" with something like 
+"vector.add(str);" or "array[x] = str;", basically 
+customize it to your needs.
+
+Hope this helps.
