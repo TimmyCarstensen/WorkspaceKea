@@ -1,4 +1,4 @@
-package gui2;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,13 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import controllers.QuestionController;
+import model.QuestionController;
+
 
 
 /**
@@ -48,9 +48,9 @@ public class Questionnaries extends JFrame
 		jpSouth = new JPanel(new FlowLayout());
 		this.questionnaries1 = new JButton("questionaries 1");
 		this.questionnaries2 = new JButton("questionaries 2");
-		this.print = new JButton("Print answers");
+		this.print = new JButton("Reset");
 		final JTextArea printOutQuestionnariesTextArea = new JTextArea();
-		JComboBox jcbox = new JComboBox();
+		
 		
 		//Assign components functions
 		//questionnaries button 1
@@ -91,7 +91,7 @@ public class Questionnaries extends JFrame
 		jpNorth.add(this.questionnaries1);
 		jpNorth.add(this.questionnaries2);
 		jpCenter.add(printOutQuestionnariesTextArea);
-		jpCenter.add(jcbox);
+		
 		jpSouth.add(this.print);
 		add(jpNorth, BorderLayout.NORTH);
 		add(jpCenter, BorderLayout.CENTER);
@@ -113,10 +113,5 @@ public class Questionnaries extends JFrame
 			String TempAnswer = JOptionPane.showInputDialog(null, a);
 			this.quest_answer = this.quest_answer + a + ": " + TempAnswer + "\n";
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new Questionnaries();
 	}
 }
