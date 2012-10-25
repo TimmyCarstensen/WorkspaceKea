@@ -1,9 +1,9 @@
-package DatabaseWrapper;
+package model;
+
 import java.io.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.LineNumberReader;
 import java.util.Scanner;
 
 

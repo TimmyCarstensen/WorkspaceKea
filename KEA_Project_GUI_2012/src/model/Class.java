@@ -1,4 +1,4 @@
-package skoleStuderende;
+package model;
 
 import java.util.ArrayList;
 

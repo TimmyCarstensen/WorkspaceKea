@@ -1,123 +1,22 @@
-package skoleStuderende;
+package control;
 
-import java.util.ArrayList;
+import model.School;
+import view.MainFrame;
+import model.Student;
+import model.Class;
 
-/**
- * 
- * @author Timmy Carstensen
- *
- */
-public class Skole {
-
-	private String name;
-	private ArrayList<Class> classes;
+public class DemoData {
 	
-	/**
-	 * 
-	 * @param name
-	 */
-	public Skole(String name)
+	public DemoData()
 	{
-		this.name = name;
-		classes = new ArrayList<Class>();
-		initialise();
+		demoInitialise();
 	}
 	
-	/**
-	 * 
-	 * @param c
-	 */
-	public void addClass(Class c)
+	public School demoInitialise()
 	{
-		classes.add(c);
-	}
-	
-	/**
-	 * 
-	 * @param className
-	 * @return
-	 */
-	public Class getAClass(String className)
-	{
-		for(Class c : classes)
-		{
-			if(c.getName().equalsIgnoreCase(name))
-			{
-				return c;
-			}
-		}
-	return null;
-	}
-	
-	/**
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public Student findStudentFromSchool(String name)
-	{
-		for(Class c : classes)
-		{
-			for(Student s : c.getStudents())
-			{
-				if(s.getName().equalsIgnoreCase(name))
-				{
-					System.out.println(s.getName() + " is a student at " + getName());
-					return s;
-					
-				}
-			}
-		}
-		return null;
-	}
-	
-	/**
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public double calculateAverageHourlyPay(String firmName)
-	{
-		int i = 0;
-		int sum = 0;
-		for(Class c : classes)
-		{
-			for(Student s : c.getStudents())
-			{
-				if(s.getStudentJob().equalsIgnoreCase(firmName))
-				{
-					sum = sum + s.getHourPay();
-					i++;
-				}
-			}
-		}
-		double result = (double)sum / (double)i;
-		System.out.println(firmName + " employee average hourly pay: " + result +  " kr."); // print out the average hourly pay of the specified firm
-		return result;
-	}
-	
-	/**
-	 * 
-	 * @param index
-	 * @return
-	 */
-	public Class getClass(int index)
-	{
-		if(index < classes.size())
-			return classes.get(index);
-		else
-			System.out.println("Wrong index given, no class exits at this entity!");
+		School school = new School("Københavns Erhvervs Akademi");
 		
-		return null;
-	}
-	
-	public String getName(){return this.name;}
-	public ArrayList<Class> getClasses() {return classes;}
-	public void setName(String name){this.name = name;}
-	
-	public void initialise()
-	{
-		Class cl1 = new Class("cl1");
+		Class cl1 = new Class("Class A");
 		
 //		1. klasse
 		Student s1 = new Student("Timmy", 123123, 24, true, "KEA", "Lifeguard", 155);
@@ -140,7 +39,7 @@ public class Skole {
 		cl1.addStudent(s8);
 		cl1.addStudent(s9);
 		
-		Class cl2 = new Class("cl2");
+		Class cl2 = new Class("Class B");
 //		2.klasse
 		Student t1 = new Student("Christian Schou Jensen", 216433, 24, true, "Dykker", "Student", 130);
 		Student t2 = new Student("Mads Christensen", 233336, 21, true, "Racekører", "traktorkører", 130);
@@ -162,7 +61,7 @@ public class Skole {
 		cl2.addStudent(t8);
 		cl2.addStudent(t9);
 		
-		Class cl3 = new Class("cl3");
+		Class cl3 = new Class("Class C");
 //		3. klasse
 		Student r1 = new Student("Melanie Ivy Kyhnæb", 722772, 22, false, "", "Netto", 128);
 		Student r2 = new Student("Nanna Helena Treschow", 277237, 20, false, "", "Lifeguard", 188);
@@ -184,11 +83,10 @@ public class Skole {
 		cl3.addStudent(r8);
 		cl3.addStudent(r9);
 		
-		addClass(cl1);
-		addClass(cl2);
-		addClass(cl3);
+		school.addClass(cl1);
+		school.addClass(cl2);
+		school.addClass(cl3);
+		
+		return school;
 	}
-	
-
-	
 }
