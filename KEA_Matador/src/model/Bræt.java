@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class Bræt {
 
 	private ArrayList<Brik> brikker;
-	private Terning terning;
-	private Bank bank;
+//	private Terning terning;
+//	private Bank bank;
 	
 	
 	public Bræt()
 	{
-		brikker = new ArrayList();
+		brikker = new ArrayList<Brik>();
 	}
 
 	/**

@@ -98,6 +98,7 @@ public class Gui3 implements ActionListener {
 		frame.setVisible(true);
 	}
 	
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Gui3 g = new Gui3();
 	}

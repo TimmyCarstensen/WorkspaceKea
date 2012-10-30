@@ -1,10 +1,7 @@
 package model;
 
 import java.io.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.LineNumberReader;
+//import java.io.LineNumberReader;
 import java.util.Scanner;
 
 
@@ -62,6 +59,7 @@ public class MyFileReader {
 		try {
 			FileReader file = new FileReader(path);
 			bf = new BufferedReader(file);
+			@SuppressWarnings("unused")
 			String aLine = "";
 			
 			while (( aLine = bf.readLine()) != null){

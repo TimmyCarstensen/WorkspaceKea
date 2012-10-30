@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JViewport;
+//import javax.swing.JViewport;
 import javax.swing.table.DefaultTableModel;
 
 import Controller.Book;
@@ -27,6 +27,10 @@ import Controller.Books;
 public class MainFrame extends JFrame{
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JScrollPane scrollpane;
 	private Books books = new Books();
 
@@ -43,7 +47,7 @@ public class MainFrame extends JFrame{
 		// Adding components
 
 		JPanel east = new JPanel(new GridLayout(12,1));
-		JPanel extra = new JPanel(new BorderLayout());
+//		JPanel extra = new JPanel(new BorderLayout());
 		JPanel w1 = new JPanel(new FlowLayout());
 		JPanel w2 = new JPanel(new FlowLayout());
 		JPanel w3 = new JPanel(new FlowLayout());
@@ -76,8 +80,8 @@ public class MainFrame extends JFrame{
 
 		
 		//This is how to get to your table!!!!
-		JViewport viewport = scrollpane.getViewport();
-		JTable table = (JTable)viewport.getView();
+//		JViewport viewport = scrollpane.getViewport();
+//		JTable table = (JTable)viewport.getView();
 //		System.out.println(table.set);
 		
 		//Adding to frame

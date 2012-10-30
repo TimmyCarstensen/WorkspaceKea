@@ -14,6 +14,7 @@ public class FromBook {
 		int count = 0;
 		while (input.hasNext())
 		{
+			@SuppressWarnings("unused")
 			String word = input.next();
 			count++;
 		}

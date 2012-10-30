@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
  */
 public class Gui1 {
 
+	@SuppressWarnings("unused")
 	private static String name, mothersName, fathersName, petType, girlfriendName, yesGirlfriend;
 	private static int age;
 	private static int choice;

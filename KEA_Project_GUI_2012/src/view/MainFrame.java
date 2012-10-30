@@ -12,7 +12,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 //import javax.swing.JList;
 //import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,12 +35,13 @@ public class MainFrame extends JFrame // implements ActionListener
 	private School school;
 	private JButton addStudent, addClass;
 	private JPanel jpSouth;
-	private JTextField testClassCombo;
+	private JTextField textFieldForCombobox;
 	private JComboBox<String[]> comboBox;
 
 	/**
 	 * 
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public MainFrame(School s)
 	{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -73,16 +74,17 @@ public class MainFrame extends JFrame // implements ActionListener
 		schoolNameLabel.setFont(new Font("Monospaced", Font.BOLD, 27));
 
 		jpCenter.setLayout(null);
-
+		
 		comboBox = new JComboBox(school.getClassNames());
 
 		comboBox.setBounds(298, 337, 133, 20);
 		jpCenter.add(comboBox);
 
-		testClassCombo = new JTextField();
-		testClassCombo.setBounds(298, 306, 86, 20);
-		jpCenter.add(testClassCombo);
-		testClassCombo.setColumns(14);
+		//Textfield used to test my combobox
+		textFieldForCombobox = new JTextField();
+		textFieldForCombobox.setBounds(298, 306, 86, 20);
+		jpCenter.add(textFieldForCombobox);
+		textFieldForCombobox.setColumns(14);
 
 		// Create buttons
 		buttons();
@@ -107,10 +109,7 @@ public class MainFrame extends JFrame // implements ActionListener
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for(Class c : school.getClasses())
-				{
-					JOptionPane.showMessageDialog(null, c.getName());
-				}
+				
 			}
 		});
 
@@ -118,15 +117,16 @@ public class MainFrame extends JFrame // implements ActionListener
 		jpSouth.add(addClass);
 		this.addClass.addActionListener(new ActionListener()
 		{
-			@SuppressWarnings({ "unchecked" })
+			
+			@SuppressWarnings({ "rawtypes", "unchecked" })
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
 
-				String text = "Class " + testClassCombo.getText();
+				String text = "Class " + textFieldForCombobox.getText();
 				System.out.println(text);
 				school.addClass(new Class(text));
-				@SuppressWarnings("rawtypes")
+				
 				DefaultComboBoxModel model = new DefaultComboBoxModel(school.getClassNames());  
 				comboBox.removeAllItems();  
 				comboBox.setModel(model);

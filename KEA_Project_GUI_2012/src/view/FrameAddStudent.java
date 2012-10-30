@@ -13,6 +13,10 @@ import javax.swing.border.EmptyBorder;
  */
 public class FrameAddStudent extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	
 	/**

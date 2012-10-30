@@ -8,6 +8,7 @@ public class Run {
 	public static void main(String[] args) {
 		
 		try {
+			@SuppressWarnings("unused")
 			Exceptions e = new Exceptions();
 		}
 		catch(NullPointerException e)

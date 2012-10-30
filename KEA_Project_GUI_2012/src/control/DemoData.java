@@ -1,7 +1,7 @@
 package control;
 
 import model.School;
-import view.MainFrame;
+//import view.MainFrame;
 import model.Student;
 import model.Class;
 

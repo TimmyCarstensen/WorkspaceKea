@@ -30,6 +30,7 @@ public class GuiManyComponents implements ItemListener {
 	JLabel lblAngryGuy;
 	JButton btn;
 	JTable table;
+	@SuppressWarnings("rawtypes")
 	JComboBox combo;
 	
 	public GuiManyComponents()
@@ -69,6 +70,7 @@ public class GuiManyComponents implements ItemListener {
 		
 		//JTable.
 		//not dynamic
+		@SuppressWarnings("unused")
 		Object rowData[][] = { { "Row1-Column1", "Row1-Column2", "Row1-Column3" },
 			        { "Row2-Column1", "Row2-Column2", "Row2-Column3" } }; //2-dimensional object array
 		

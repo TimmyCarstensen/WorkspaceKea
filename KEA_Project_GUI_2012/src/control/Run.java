@@ -1,9 +1,9 @@
 package control;
 
 import view.MainFrame;
-import model.Class;
+//import model.Class;
 import model.School;
-import model.Student;;
+//import model.Student;
 
 /**
  * 
