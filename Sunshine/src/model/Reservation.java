@@ -11,26 +11,26 @@ public class Reservation {
 	private Kunde kunde;
 
 
-private int getUgeNr() 
-{
-	return ugeNr;
-}
-private int getAntalUger() 
-{
-	return antalUger;
-}
-private double getTotalPris() 
-{
-	return totalPris;
-}
-private Hytte getHytteNavn() 
-{
-	return hytteNavn;
-}
-private Kunde getKunde() 
-{
-	return kunde;
-}
+	private int getUgeNr() 
+	{
+		return ugeNr;
+	}
+	private int getAntalUger() 
+	{
+		return antalUger;
+	}
+	private double getTotalPris() 
+	{
+		return totalPris;
+	}
+	private Hytte getHytteNavn() 
+	{
+		return hytteNavn;
+	}
+	private Kunde getKunde() 
+	{
+		return kunde;
+	}
 
-
+}
 

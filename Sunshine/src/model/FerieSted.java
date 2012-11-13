@@ -6,12 +6,13 @@ import java.util.ArrayList;
 public class FerieSted {
 	private int ugeNr;
 	private Sæson sæson;
-	private ArrayList<Hytter> hytter = new ArrayList<Hytter>();
-	private ArrayList<Reservationer> reservationer = new ArrayList <Reservationer>();
-	private ArrayList<Kunder> kunder = new ArrayList <Reservationer>();
+	private ArrayList<Hytte> hytter = new ArrayList<Hytte>();
+	private ArrayList<Reservation> reservationer = new ArrayList <Reservation>();
+	private ArrayList<Kunde> kunder = new ArrayList <Kunde>();
 
 	public int beregnPris()
 	{
+		return ugeNr;
 		
 	}
 	
@@ -22,6 +23,7 @@ public class FerieSted {
 	
 	public boolean lavRenovation() 
 	{
+		return false;
 		
 	}
 	
