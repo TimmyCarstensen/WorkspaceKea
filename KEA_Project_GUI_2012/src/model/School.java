@@ -85,7 +85,7 @@ public class School {
 	}
 	
 	/**
-	 * 
+	 * Don't know it I want to use this method.
 	 * @param name
 	 * @return
 	 */

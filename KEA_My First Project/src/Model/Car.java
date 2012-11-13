@@ -117,5 +117,5 @@ public class Car
 	public int getNumberOfWheels(){return numberOfWheels;}
 	public double getWidth(){return width;}
 	public double getLength(){return length;}
-	public int getDaysLastWash(){return lastWashed;}
+	public int getDaysLastWash(){return lastWashed;}	
 }
