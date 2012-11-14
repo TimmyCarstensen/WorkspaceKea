@@ -10,6 +10,11 @@ public class Standard extends Hytte{
 		super( pris, senge, hytteNavn);
 	}
 	
+	@Override
+	public int hashCode()
+	{
+		return 200222;
+	}
 	
 
 }

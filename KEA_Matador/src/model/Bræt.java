@@ -2,14 +2,14 @@ package model;
 
 import java.util.ArrayList;
 
-public class Bræt {
+public class BrÃ¦t {
 
 	private ArrayList<Brik> brikker;
 //	private Terning terning;
 //	private Bank bank;
 	
 	
-	public Bræt()
+	public BrÃ¦t()
 	{
 		brikker = new ArrayList<Brik>();
 	}

@@ -4,33 +4,35 @@ package model;
 
 public class Reservation {
 
-	private int antalUger;
-	private int ugeNr;
 	private double totalPris;
 	private Hytte hytteNavn; 
 	private Kunde kunde;
+	private int [] Uger;
+	
+	
 
-
-	private int getUgeNr() 
-	{
-		return ugeNr;
-	}
-	private int getAntalUger() 
-	{
-		return antalUger;
-	}
-	private double getTotalPris() 
+	public double getTotalPris() 
 	{
 		return totalPris;
 	}
-	private Hytte getHytteNavn() 
+	public Hytte getHytteNavn() 
 	{
 		return hytteNavn;
 	}
-	private Kunde getKunde() 
+	public Kunde getKunde() 
 	{
 		return kunde;
 	}
-
+	
+	public void setHytteNavn(Hytte nyHytte)
+	{
+		this.hytteNavn = nyHytte;
+	}
+	
+	public void setKunde(Kunde nyKunde)
+	{
+		this.kunde = nyKunde;
+	}
+	
 }
 

@@ -17,6 +17,8 @@ public abstract class Hytte {
 		this.hytteNavn = hytteNavn;
 	}
 	
+	public String getHytteNavn(){return this.hytteNavn;}
+	
 	
 	public int getPris()
 	{

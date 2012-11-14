@@ -10,4 +10,11 @@ public class Luksus extends Hytte {
 		super(pris, senge, hytteNavn);
 	}
 
+	@Override
+	public int hashCode()
+	{
+		return 100111;
+	}
+	
+	
 }

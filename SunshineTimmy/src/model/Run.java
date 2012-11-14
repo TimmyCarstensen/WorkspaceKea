@@ -9,6 +9,8 @@ public class Run {
 		f.læsHytterFraFil();
 		
 		f.printHytteArray();
+		
+//		f.l�sHytterTilFil();
 	}
 	
 }
