@@ -54,7 +54,7 @@ public class AddBook extends JFrame implements ActionListener{
 		
 		setResizable(false);
 		// pack();
-		setVisible(true);
+		setVisible(false);
 	}
 
 	@Override
