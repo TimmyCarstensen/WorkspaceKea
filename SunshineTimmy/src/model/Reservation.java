@@ -1,11 +1,6 @@
 package model;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.Scanner;
+
 
 /**
  * 
@@ -19,9 +14,6 @@ public class Reservation {
 	private double totalPrice;
 	private Cottage cottage;
 	private Customer customer;
-	private String ID; 
-	private Integer number;
-	private Scanner input;
 	/**
 	 * Bruges af parser til at læse en simpel reservation ind, med string-typer for cottage og customer.
 	 * @param weeks
@@ -29,17 +21,19 @@ public class Reservation {
 	 * @param cottageName
 	 * @param customer
 	 */
-	public Reservation(int[] weeks, int year, String cottageName, String cvrNr_cprNr, Resort resort, String ID)
+	public Reservation(int[] weeks, int year, String cottageName, String cvrNr_cprNr, Resort resort)
 	{
+
 		this.weeks = weeks;
 		this.year = year;
 		this.cottage = resort.findCottageName(cottageName);
 		this.cottage.assignNoVancancy(weeks, year);
+//		this.cottage.printStatus();
 		this.customer = resort.findCustomer(cvrNr_cprNr);
-		this.ID = ID;
 		calculatePrice();
+//		System.out.println("Price for this reservation is: " + this.totalPrice + "year " + this.year);
 	}
-	
+
 	/**
 	 * Bruges af resort når vi skal oprette reservation via inputs fra den ansatte.
 	 * @param weeks
@@ -52,78 +46,12 @@ public class Reservation {
 		this.year = year;
 		this.cottage = cottage;
 		this.cottage.assignNoVancancy(weeks, year);
+//		this.cottage.printStatus();
 		this.customer = customer;
 		calculatePrice();
-		this.ID = createNumberID();
+
 	}
 
-	public Reservation(int[] weeks, Cottage cottage, Customer customer)
-	{
-		this.weeks = weeks;
-		this.cottage = cottage;
-		this.customer = customer;
-		calculatePrice(); 
-	}
-	
-	/**
-	 * Lavet af Timmy
-	 */
-	public String createNumberID()
-	{
-		readInFile();
-		int lenghtOfNumber = number.toString().length();
-		StringBuilder zeros = new StringBuilder();
-		int numberOfZeros = 6 - lenghtOfNumber;
-		while(numberOfZeros > 0)
-		{
-			zeros.append('0');
-			numberOfZeros--;
-		}
-
-		writeToFile();
-		this.ID = "SUNRE" + 2012 + "100A" + zeros.toString() + number.intValue();
-		
-		return this.ID;
-	}
-	
-	public void readInFile()
-	{
-		File f = new File("reservationID");
-		try 
-		{
-			this.input = new Scanner(f);
-
-			String line = input.nextLine();
-			this.number = Integer.parseInt(line);
-
-		} catch (FileNotFoundException e)
-		{
-			System.out.println("Fil ikke fundet!!!!!");
-		}
-	}
-
-
-	public void writeToFile() 
-	{
-		File f = new File ("reservationID"); 
-
-		try {
-			FileOutputStream fos = new FileOutputStream (f, false);
-			PrintStream output = new PrintStream(fos);
-			
-			this.number = this.number.intValue() + 1;
-			
-			output.print(this.number);
-		
-			output.close();
-		}
-		catch (IOException e) 
-		{
-			System.out.println("error");
-		}
-	}
-	
-	
 	/**
 	 * Kenneth og Peter
 	 * 
@@ -195,11 +123,6 @@ public class Reservation {
 	public double getTotalPrice()
 	{
 		return this.totalPrice;
-	}
-	
-	public String getID()
-	{
-		return this.ID;
 	}
 }
 

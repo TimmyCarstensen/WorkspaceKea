@@ -29,7 +29,7 @@ import javax.swing.table.TableRowSorter;
 public class Gui
   implements ActionListener
 {
-  static Control c = new Control();
+  static Control control = new Control();
   GuiSelectedMovie gsm;
   private JFrame frame;
   private JTextField titleField;
@@ -73,7 +73,7 @@ public class Gui
 
   public Gui()
   {
-    c.loadAllMovies();
+    control.loadAllMovies();
 
     this.titleField = new JTextField(10);
     this.yearField = new JTextField(10);
@@ -108,8 +108,8 @@ public class Gui
     this.openSelected = new JMenuItem("Open Selected Movie");
     this.delivered = new JMenuItem("Register delivery");
 
-    this.genreList = new JComboBox(c.loadGenreFromFile());
-    this.genreList2 = new JComboBox(c.loadGenreFromFile());
+    this.genreList = new JComboBox(control.loadGenreFromFile());
+    this.genreList2 = new JComboBox(control.loadGenreFromFile());
     this.genreList.setBackground(Color.WHITE);
     this.genreList2.setBackground(Color.WHITE);
     Font font = new Font("Palatino", 1, 12);
@@ -277,15 +277,15 @@ public class Gui
 
   public void updateJTable()
   {
-    c.loadAllMovies();
+    control.loadAllMovies();
 
     DefaultTableModel model = new DefaultTableModel();
 
     model.setColumnIdentifiers(new String[] { "Title", "Year", "Genre", "Lent to" });
-    model.setRowCount(c.getMovies().size());
+    model.setRowCount(control.getMovies().size());
 
     int row = 0;
-    for (Movie m : c.getMovies()) {
+    for (Movie m : control.getMovies()) {
       model.setValueAt(m.getTitle(), row, 0);
       model.setValueAt(m.getYear(), row, 1);
       model.setValueAt(m.getGenre(), row, 2);
@@ -301,9 +301,9 @@ public class Gui
     DefaultTableModel model = new DefaultTableModel();
 
     model.setColumnIdentifiers(new String[] { "Title", "Year", "Genre", "Lent to" });
-    model.setRowCount(c.genreList.size());
+    model.setRowCount(control.genreList.size());
     int row = 0;
-    for (Movie m : c.genreList) {
+    for (Movie m : control.genreList) {
       model.setValueAt(m.getTitle(), row, 0);
       model.setValueAt(m.getYear(), row, 1);
       model.setValueAt(m.getGenre(), row, 2);
@@ -317,9 +317,9 @@ public class Gui
   {
     DefaultTableModel model = new DefaultTableModel();
     model.setColumnIdentifiers(new String[] { "Title", "Year", "Genre", "Lent to" });
-    model.setRowCount(c.searchList.size());
+    model.setRowCount(control.searchList.size());
     int row = 0;
-    for (Movie m : c.searchList) {
+    for (Movie m : control.searchList) {
       model.setValueAt(m.getTitle(), row, 0);
       model.setValueAt(m.getYear(), row, 1);
       model.setValueAt(m.getGenre(), row, 2);
@@ -337,8 +337,8 @@ public class Gui
     }
     else
     {
-      c.searchMovie(this.searchField.getText());
-      if (c.searchList.size() > 0)
+      control.searchMovie(this.searchField.getText());
+      if (control.searchList.size() > 0)
       {
         updateByTitle();
       }
@@ -353,8 +353,8 @@ public class Gui
   {
     Object genreObj = this.genreList2.getSelectedItem();
     String genreString = genreObj.toString();
-    c.moviesByGenre(genreString);
-    if (c.genreList.size() > 0)
+    control.moviesByGenre(genreString);
+    if (control.genreList.size() > 0)
     {
       updateByGenre();
     }
@@ -379,7 +379,7 @@ public class Gui
     else
     {
       try {
-        c.addMovie(this.titleField.getText(), this.yearField.getText(), genreString, this.linkField.getText());
+        control.addMovie(this.titleField.getText(), this.yearField.getText(), genreString, this.linkField.getText());
       }
       catch (FileNotFoundException e) {
         e.printStackTrace();
@@ -411,7 +411,7 @@ public class Gui
           {
             Object lentObj = this.table.getValueAt(this.rowData, 3);
             String lentString = lentObj.toString();
-            c.saveTheLentList(titleString, lentString);
+            control.saveTheLentList(titleString, lentString);
           }
           catch (FileNotFoundException e)
           {
@@ -444,7 +444,7 @@ public class Gui
       this.table.setValueAt(input, this.rowData, 0);
       try
       {
-        c.saveTheTitleList(input, oldName);
+        control.saveTheTitleList(input, oldName);
       }
       catch (FileNotFoundException e) {
         e.printStackTrace();
@@ -470,7 +470,7 @@ public class Gui
       this.table.setValueAt(input, this.rowData, 1);
       try
       {
-        c.saveTheYearList(titleString, input);
+        control.saveTheYearList(titleString, input);
       }
       catch (FileNotFoundException e) {
         e.printStackTrace();
@@ -492,13 +492,13 @@ public class Gui
       Object titleObj = this.table.getValueAt(this.rowData, 0);
       String titleString = titleObj.toString();
 
-      Object input = JOptionPane.showInputDialog(null, "Select a new genre", "Change genre", 1, null, c.loadGenreFromFile(), "Valg2");
+      Object input = JOptionPane.showInputDialog(null, "Select a new genre", "Change genre", 1, null, control.loadGenreFromFile(), "Valg2");
       String inputString = input.toString();
 
       this.table.setValueAt(input, this.rowData, 2);
       try
       {
-        c.saveTheGenreList(titleString, inputString);
+        control.saveTheGenreList(titleString, inputString);
       }
       catch (FileNotFoundException e) {
         e.printStackTrace();
@@ -519,9 +519,9 @@ public class Gui
       Object titleObj = this.table.getValueAt(this.rowData, 0);
       String titleString = titleObj.toString();
 
-      c.openInIMDb(titleString);
+      control.openInIMDb(titleString);
 
-      c.clearLinks();
+      control.clearLinks();
     }
     catch (Exception e) {
       JOptionPane.showMessageDialog(null, "Select a movie first");
@@ -544,7 +544,7 @@ public class Gui
       Object titleObj = this.table.getValueAt(this.rowData, 0);
       String titleString = titleObj.toString();
 
-      for (Movie m : c.getMovies())
+      for (Movie m : control.getMovies())
       {
         if (!titleString.equalsIgnoreCase(m.getTitle()))
           continue;
@@ -577,7 +577,7 @@ public class Gui
       {
         Object lentObj = this.table.getValueAt(this.rowData, 3);
         String lentString = lentObj.toString();
-        c.saveTheLentList(titleString, lentString);
+        control.saveTheLentList(titleString, lentString);
       }
       catch (FileNotFoundException e) {
         e.printStackTrace();
@@ -603,8 +603,8 @@ public class Gui
       if (confirmDelete == 0)
       {
         try {
-          c.deleteMovie(titleString);
-          c.temp();
+          control.deleteMovie(titleString);
+          control.temp();
         }
         catch (FileNotFoundException e) {
           JOptionPane.showMessageDialog(null, "File could not be found");

@@ -16,8 +16,7 @@ public class Resort {
 	private ArrayList<Reservation> reservations;
 	private ArrayList<Customer> customers;
 	private Parser parser;
-	private String[] weeksAll = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52"};
-	private String[] year20Forward;
+
 	/**
 	 * Systemet skal lukkes ned hver dag!
 	 */
@@ -30,7 +29,7 @@ public class Resort {
 
 		time();
 		this.season = seasonOfWeek(this.weekNumber);
-		createYears20Forward();
+
 
 
 		parser.readInFileCottages(cottages);
@@ -178,21 +177,6 @@ public class Resort {
 	}
 
 	/**
-	 * Lavet af Farhiya og Matias
-	 * @param ID
-	 * @return
-	 */
-	public Reservation findReservation(String ID)
-	{
-		for(Reservation r : reservations)
-		{
-			if(r.getID().equalsIgnoreCase(ID))
-				return r;
-		}
-		return null;
-	}
-	
-	/**
 	 * Matias
 	 * Skal bruges til at tjekke inden en cottage skal slettes.
 	 * @param cottageName
@@ -212,16 +196,16 @@ public class Resort {
 	/**
 	 * Kenneth
 	 */
-	public void createCottage(char typeOfCottage, String cottageName, int price, int beds, boolean renovation)
+	public void createCottage(char typeOfCottage, String cottageName, int price, int beds)
 	{
 		if(typeOfCottage == 'l')
 		{
-			LuxuryCottage luxuryCottage = new LuxuryCottage(typeOfCottage,cottageName, price, beds, renovation);
+			LuxuryCottage luxuryCottage = new LuxuryCottage(typeOfCottage,cottageName, price, beds);
 			cottages.add(luxuryCottage);
 		}
 		else if (typeOfCottage == 's')
 		{	
-			StandardCottage standardCottage = new StandardCottage(typeOfCottage, cottageName, price, beds, renovation);
+			StandardCottage standardCottage = new StandardCottage(typeOfCottage, cottageName, price, beds);
 			cottages.add(standardCottage);
 		}
 	}
@@ -245,8 +229,14 @@ public class Resort {
 		}
 	}
 
-
-	// This function make that a customer can't be deleted if the customer has a reservation.
+	public void printCottageArray()
+	{
+		for(Cottage c : cottages)
+		{
+			System.out.println(c.getCottageName());
+		}
+	}
+	
 	public boolean doesCustomerHaveReservation(String cvr_cpr_nr)
 	{
 		for(Reservation r : reservations)
@@ -270,11 +260,11 @@ public class Resort {
 		}
 	}
 	
-	public void deleteReservation(String ID)
+	public void deleteReservation(String cvr_cpr_nr)
 	{
 		for(Reservation r : this.reservations)
 		{
-			if(r.getID().equalsIgnoreCase(ID))
+			if(cvr_cpr_nr.equalsIgnoreCase(r.getCustomer().getcvrNr_cprNr()))
 			{
 				reservations.remove(r);
 				return;
@@ -333,11 +323,6 @@ public class Resort {
 		parser.writeToFileReservations(this.reservations);
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	// Is used by reservationclass to create inputs to the combobox there.
 	public String[] getCustomerArray()
 	{
 		String[] customerArray = new String[customers.size()];
@@ -348,29 +333,6 @@ public class Resort {
 			i++;
 		}
 		return customerArray;
-	}
-	
-	public void createYears20Forward()
-	{
-		int tempYear = this.year;
-		String[] year20Forward = new String[20];
-		for(int i = 0; i < 20; i++)
-		{
-			year20Forward[i] = Integer.toString(tempYear);
-			tempYear++;
-		}
-		this.year20Forward = year20Forward;
-	}
-	
-	
-	public String[] getWeeksAll()
-	{
-		return this.weeksAll;
-	}
-	
-	public String[] getYear20Forward()
-	{
-		return this.year20Forward;
 	}
 	
 	public Season getSeason()

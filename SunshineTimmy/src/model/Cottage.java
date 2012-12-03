@@ -14,13 +14,13 @@ public abstract class Cottage {
 	protected boolean renovation;
 	private ArrayList<Status> vacancy;
 	
-	public Cottage (char typeOfCottage, String cottageName, int price, int beds, boolean renovation)
+	public Cottage (char typeOfCottage, String cottageName, int price, int beds)
 	{
 		this.typeOfCottage = typeOfCottage;
 		this.CottageName = cottageName;
 		this.price = price;
 		this.beds = beds;
-		this.renovation = renovation;
+		this.renovation = false;
 		this.vacancy = new ArrayList<Status>();
 	}
 	
@@ -46,40 +46,25 @@ public abstract class Cottage {
 	public void assignVancancy(int[] weeks, int year)
 	{
 		int i = 0;
-		for(int week : weeks)
+		for(Status status : vacancy)
 		{
-			for(Status status : vacancy)
+			for(int week : weeks)
 			{	
 				if(status.getWeek() == week && status.getYear() == year)
-					{
-					this.vacancy.remove(i);
-					break;
-					}
-				i++;
+				vacancy.remove(i);	
 			}
-			i = 0;
+			i++;		
 		}
-	}
-	
-	/**
-	 * Denne bruges i forhold til sikkerhed ved sletning af cottage.
-	 * @return
-	 */
-	public boolean isReserved()
-	{
-		if(this.vacancy.size() == 0)
-		{
-			return true;
-		}
-		return false;
 	}
 	
 	/**
 	 * Lavet af Timmy
 	 * @param week
 	 * @param year
-	 * @return True if cottage is available, otherwise false.
+	 * @return
 	 */
+	// Muligvis skal vi bruge lidt logik i Gui'en for at bruge denne i forhold 
+	// til at tjekke på flere uger af gangen!
 	public boolean checkVacancy(int week, int year)
 	{
 		for(Status status : vacancy)
@@ -90,6 +75,15 @@ public abstract class Cottage {
 			}
 		}
 		return true;
+	}
+	
+	public boolean isReserved()
+	{
+		if(this.vacancy.size() == 0)
+		{
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -106,11 +100,13 @@ public abstract class Cottage {
 		for(int week : weeks)
 		{
 			vacancy[i] = checkVacancy(week, year);
+			System.out.println("WeekNumber: " + week);
 			i++;
 		}
 		
 		for(boolean isVacant : vacancy)
 		{
+			System.out.println("Boolean for om ugen er ledig: " + isVacant);
 			if(isVacant == false)
 				is = false;
 		}

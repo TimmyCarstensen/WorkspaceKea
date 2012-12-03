@@ -16,10 +16,13 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 //import javax.swing.JViewport;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
 import Controller.Book;
-import Controller.Books;
+import Controller.Material;
+import Controller.NewsPaper;
 
 /**
  * 
@@ -34,8 +37,11 @@ public class MainFrame extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JScrollPane scrollpane;
-	private Books books = new Books();
-	private JTable table;
+	private Material material = new Material();
+	private Tables table;
+	private JTabbedPane tabbedPane;
+	private JTable bookTable;
+	private JTable newsPaperTable;
 
 	/**
 	 * 
@@ -45,40 +51,63 @@ public class MainFrame extends JFrame{
 		setSize(new Dimension(500,500));
 		setLayout(new BorderLayout());
 		setLocation(new Point(300, 300));
-		setTitle("Books");
+		setTitle("Example use of JTable and JTabbedPane");
 
+		this.table = new Tables(material);
 		// Adding components
 
-		JPanel east = new JPanel(new GridLayout(12,1));
-//		JPanel extra = new JPanel(new BorderLayout());
-		JPanel w1 = new JPanel(new FlowLayout());
-		JPanel w2 = new JPanel(new FlowLayout());
-		JPanel w3 = new JPanel(new FlowLayout());
-		JTextField textField = new JTextField();
+		GridLayout gL = new GridLayout();
+		gL.setRows(12);
+		gL.setColumns(1);
+		gL.setVgap(15);
+		
+		JPanel east = new JPanel(gL);
+
+		
 		
 		JButton newBook = new JButton("New");
 		JButton editBook = new JButton("Edit");
 		JButton deleteBook = new JButton("Delete");
-		JTabbedPane tabbedPane = new JTabbedPane();
+		
+		// Her oprettes tabeller og tabbedPane
+		this.tabbedPane = new JTabbedPane();
+		this.bookTable = new JTable(table.getBookModel());
+		JScrollPane scrollpaneBook = new JScrollPane(bookTable);
+		this.newsPaperTable = new JTable(table.getNewsPaper());
+		JScrollPane scrollpaneNewsPaper = new JScrollPane(newsPaperTable);
+
+		
+		this.tabbedPane.addTab("tabel 1", scrollpaneBook);
+		this.tabbedPane.addTab("tabel 2", scrollpaneNewsPaper);
 		
 		
+		this.tabbedPane.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				System.out.println("tab" + tabbedPane.getSelectedIndex());
+				
+			}
+			
+		});
 		
-		this.table = new JTable();
-		table.setModel(getBookModel());
-		this.scrollpane = new JScrollPane(table);
-		tabbedPane.addTab("tabel 1", this.scrollpane);
-		tabbedPane.addTab("tabel 2", textField);
-		
-		
-		//Define components
+		//
 		newBook.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				books.addBook(new Book("Test1", "test 2", "test 3"));
-				updateBookmodel();
-//				table.setModel(updateTable());
+				if(tabbedPane.getSelectedIndex() == 0){
+					material.addBook(new Book("Test1", "test 2", "test 3"));
+					table.updateBookModel(bookTable);
+				}
+				
+				else if(tabbedPane.getSelectedIndex() == 1){
+					material.addAvis(new NewsPaper("test1", "test2", "test3", "test4"));
+					table.updateNewsPaperModel(newsPaperTable);
+				}
+					
+//				
 			}
 		});
 		
@@ -92,15 +121,11 @@ public class MainFrame extends JFrame{
 		});
 		
 		
-		//Wrapper for east
-		w1.add(newBook);
-		w2.add(editBook);
-		w3.add(deleteBook);
 
 		//Component added
-		east.add(w1);
-		east.add(w2);	
-		east.add(w3);
+		east.add(newBook);
+		east.add(editBook);	
+		east.add(deleteBook);
 		
 		
 		
@@ -118,59 +143,7 @@ public class MainFrame extends JFrame{
 		setVisible(true);
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public DefaultTableModel getBookModel()
-	{
-		DefaultTableModel model = new DefaultTableModel();
-		model.setColumnIdentifiers(new String[] { "Cottage Name", "Cottage Type", "Price", "Beds" });
-		model.setRowCount(books.getBooks().size());
-		int row = 0;
-		for (Book book : books.getBooks()) {
-			model.setValueAt(book.getTitle(), row, 0);
-			model.setValueAt(book.getAuthor(), row, 1);
-			model.setValueAt(book.getPublisher(), row, 2);
-			
-			row++;
-		}
-		
-		return model;			
-	}
 	
-	public DefaultTableModel getNewsPaper()
-	{
-		DefaultTableModel model = new DefaultTableModel();
-		model.setColumnIdentifiers(new String[] { "Titel", "SideTal", "Udgiver", "Dato" });
-		model.setRowCount(books.getBooks().size());
-		int row = 0;
-		for (Book book : books.getBooks()) {
-			model.setValueAt(book.getTitle(), row, 0);
-			model.setValueAt(book.getAuthor(), row, 1);
-			model.setValueAt(book.getPublisher(), row, 2);
-			
-			row++;
-		}
-		
-		return model;			
-	}	
-	
-	public void updateBookmodel()
-	{
-		DefaultTableModel model = new DefaultTableModel();
-		model.setColumnIdentifiers(new String[] { "Cottage Name", "Cottage Type", "Price", "Beds" });
-		model.setRowCount(books.getBooks().size());
-		int row = 0;
-		for (Book book : books.getBooks()) {
-			model.setValueAt(book.getTitle(), row, 0);
-			model.setValueAt(book.getAuthor(), row, 1);
-			model.setValueAt(book.getPublisher(), row, 2);
-			
-			row++;
-		}
-		this.table.setModel(model);
-	}
 
 	public JScrollPane getTable(){return this.scrollpane;}
 }

@@ -85,11 +85,11 @@ public class Parser {
 
 			if(values[0].equals("s"))
 			{
-				StandardCottage sc = new StandardCottage('s', values[1], Integer.parseInt(values[2]), Integer.parseInt(values[3]), Boolean.parseBoolean(values[4]));
+				StandardCottage sc = new StandardCottage('s', values[1], Integer.parseInt(values[2]), Integer.parseInt(values[3]));
 				hytter.add(sc);
 			} else if(values[0].equals("l"))
 			{
-				LuxuryCottage lc = new LuxuryCottage('l', values[1], Integer.parseInt(values[2]),Integer.parseInt(values[3]), Boolean.parseBoolean(values[4]));
+				LuxuryCottage lc = new LuxuryCottage('l', values[1], Integer.parseInt(values[2]),Integer.parseInt(values[3]));
 				hytter.add(lc);
 			}
 		}
@@ -124,7 +124,7 @@ public class Parser {
 				inputLine = input.nextLine();
 				String[] valuesLine2 = inputLine.split(";");
 
-			    Reservation r = new Reservation(weeks, Integer.parseInt(valuesLine2[0]), valuesLine2[1], valuesLine2[2], this.resort, valuesLine2[3]);
+			    Reservation r = new Reservation(weeks, Integer.parseInt(valuesLine2[0]), valuesLine2[1], valuesLine2[2], this.resort);
 			    reservations.add(r);		
 			}
 		}catch(FileNotFoundException e)
@@ -137,7 +137,7 @@ public class Parser {
 	/**
 	 * Lavet af Timmy
 	 */
-	public void writeToFileCottages(ArrayList<Cottage> cottages)
+	public void writeToFileCottages(ArrayList<Cottage> hytter)
 	{
 		File f = new File("cottages");
 
@@ -145,27 +145,26 @@ public class Parser {
 			FileOutputStream fos = new FileOutputStream(f, false);
 			PrintStream output = new PrintStream(fos);
 	
-			for(Cottage c : cottages)
+			for(Cottage h : hytter)
 			{
 				StringBuilder sb = new StringBuilder();
 				
-				if(c.getTypeOfCottage() == 's')
+				if(h.getTypeOfCottage() == 's')
 				{
 					sb.append("s;");
-					sb.append(c.getCottageName() + ";");
-					sb.append(c.getPrice() + ";");
-					sb.append(c.getBeds() + ";");
-					sb.append(c.getRenovation());
+					sb.append(h.getCottageName() + ";");
+					sb.append(h.getPrice() + ";");
+					sb.append(h.getBeds());
 					
 					
 					output.println(sb.toString());
-				}else if(c.getTypeOfCottage() == 'l')
+				}else if(h.getTypeOfCottage() == 'l')
 				{
 					sb.append("l;");
-					sb.append(c.getCottageName() + ";");
-					sb.append(c.getPrice() + ";");
-					sb.append(c.getBeds() + ";");
-					sb.append(c.getRenovation());
+					sb.append(h.getCottageName() + ";");
+					sb.append(h.getPrice() + ";");
+					sb.append(h.getBeds());
+					
 					
 					output.println(sb.toString());
 				}
@@ -254,8 +253,7 @@ public class Parser {
 				sb.append(weeks + "\n");
 				sb.append(r.getYear() + ";");
 				sb.append(r.getCottage().getCottageName() + ";");
-				sb.append(r.getCustomer().getcvrNr_cprNr() + ";");
-				sb.append(r.getID());
+				sb.append(r.getCustomer().getcvrNr_cprNr());
 
 				output.println(sb.toString());
 				 

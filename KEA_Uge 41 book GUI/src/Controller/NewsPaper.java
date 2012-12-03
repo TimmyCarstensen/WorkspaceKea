@@ -17,4 +17,44 @@ public class NewsPaper {
 		this.udgiver = udgiver;
 		this.dato = dato;
 	}
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+	public String getSidetal() {
+		return sidetal;
+	}
+
+
+	public void setSidetal(String sidetal) {
+		this.sidetal = sidetal;
+	}
+
+
+	public String getUdgiver() {
+		return udgiver;
+	}
+
+
+	public void setUdgiver(String udgiver) {
+		this.udgiver = udgiver;
+	}
+
+
+	public String getDato() {
+		return dato;
+	}
+
+
+	public void setDato(String dato) {
+		this.dato = dato;
+	}
 }

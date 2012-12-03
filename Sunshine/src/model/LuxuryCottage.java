@@ -5,9 +5,9 @@ package model;
  */
 public class LuxuryCottage extends Cottage {
 	
-	public LuxuryCottage (char typeOfCottage, String cottageName, int beds, int price)
+	public LuxuryCottage (char typeOfCottage, String cottageName,  int price, int beds, boolean renovation)
 	{
-		super(typeOfCottage, cottageName, beds ,price);
+		super(typeOfCottage, cottageName, price, beds, renovation);
 	}
 
 }
