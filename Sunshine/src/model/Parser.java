@@ -22,12 +22,11 @@ public class Parser {
 	{
 		this.resort = resort;
 	}
+	
 	/**
- * 
- * @author Matias og Kenneth
- *
- */
-
+	 * Lavet af Kenneth og Matias
+	 * @param customers
+	 */
 	public void readInFileCustomers(ArrayList<Customer> customers)
 	{
 		File f = new File("customers");
@@ -37,11 +36,12 @@ public class Parser {
 
 			while (input.hasNextLine())
 			{
+				// Læs næste linje i systemet
 				String line = input.nextLine();
 
 				String[] values = line.split(";");
 
-				// typeOfCustomer, name, telephoneNumber, adress, email, cprNr
+				// Objektet initialisere og indsættes i arrayList.
 				if(values[0].equals("t"))
 				{
 					TuristCustomer turistCustomer = new TuristCustomer('t', values[1], values[2], values[3], values[4], values[5]);
@@ -63,9 +63,9 @@ public class Parser {
 
 	/**
 	 * Lavet af Timmy
-	 * @param hytter
+	 * @param cottages
 	 */
-	public void readInFileCottages(ArrayList<Cottage> hytter)
+	public void readInFileCottages(ArrayList<Cottage> cottages)
 	{
 		File f = new File("cottages");
 
@@ -76,7 +76,7 @@ public class Parser {
 		{
 			System.out.println("Error. File not found");
 		}
-		// "\\z" to a delimiter gives the opputunity to read the whole file at once!
+		// Filen bliver læst og parset til resort.
 		while (input.hasNextLine())
 		{
 			String line = input.nextLine();
@@ -86,11 +86,11 @@ public class Parser {
 			if(values[0].equals("s"))
 			{
 				StandardCottage sc = new StandardCottage('s', values[1], Integer.parseInt(values[2]), Integer.parseInt(values[3]), Boolean.parseBoolean(values[4]));
-				hytter.add(sc);
+				cottages.add(sc);
 			} else if(values[0].equals("l"))
 			{
 				LuxuryCottage lc = new LuxuryCottage('l', values[1], Integer.parseInt(values[2]),Integer.parseInt(values[3]), Boolean.parseBoolean(values[4]));
-				hytter.add(lc);
+				cottages.add(lc);
 			}
 		}
 		input.close();
@@ -98,8 +98,10 @@ public class Parser {
 
 	
 	
-	// Lavet af Hisayo & Farhiya
-	
+	/**
+	 * Lavet af Hisayo & Farhiya
+	 * @param reservations
+	 */
 	public void readFromFileReservation(ArrayList<Reservation> reservations)
 	{
 		try
@@ -107,9 +109,12 @@ public class Parser {
 			File f = new File("reservations");
 			this.input = new Scanner(f);
 			
+			String inputLine = input.nextLine();
+			this.resort.setResortAmount(Integer.parseInt(inputLine));
+			//filen bliver læst og parset til resort.
 			while ( input.hasNextLine())
 			{
-				String inputLine = input.nextLine();
+				inputLine = input.nextLine();
 				
 				String[] valuesLine1 = inputLine.split(";");
 				int[] weeks = new int[valuesLine1.length];
@@ -125,6 +130,7 @@ public class Parser {
 				String[] valuesLine2 = inputLine.split(";");
 
 			    Reservation r = new Reservation(weeks, Integer.parseInt(valuesLine2[0]), valuesLine2[1], valuesLine2[2], this.resort, valuesLine2[3]);
+			    r.setTotalPrice(Double.parseDouble(valuesLine2[4]));
 			    reservations.add(r);		
 			}
 		}catch(FileNotFoundException e)
@@ -145,6 +151,7 @@ public class Parser {
 			FileOutputStream fos = new FileOutputStream(f, false);
 			PrintStream output = new PrintStream(fos);
 	
+			//Skrives til fil.
 			for(Cottage c : cottages)
 			{
 				StringBuilder sb = new StringBuilder();
@@ -174,8 +181,7 @@ public class Parser {
 			output.close(); //remember to close
 
 		} catch (IOException e) {
-			//handle an exception by telling the user that something went wrong.
-			System.out.println("Something went wrong!");
+			System.out.println("File is not found!");
 		}
 	}	
 	
@@ -188,15 +194,14 @@ public class Parser {
 		File f = new File("customers");
 
 		try {
-			// filOutputStream skal have en boolean værdi med som input, hvis false overskriver
-			// den filen, hvis true skriver den på enden af filen.
 			FileOutputStream fos = new FileOutputStream(f, false);
 			PrintStream output = new PrintStream(fos);
-			// typeOfCustomer, name, telephoneNumber, adress, email
+			
+			// Skrives til fil.
 			for(Customer c : customers)
 			{
 				StringBuilder sb = new StringBuilder();
-				//Ved ikke hvorvidt om brugen af hashCode er en god ide?
+				
 				if(c.getTypeOfCustomer() == 'f')
 				{
 					sb.append("f;");
@@ -224,7 +229,7 @@ public class Parser {
 			output.close(); //remember to close
 
 		} catch (IOException e) {
-			System.out.println("Something went wrong!");
+			System.out.println("File is not found!");
 		}
 	}	
 	
@@ -237,11 +242,14 @@ public class Parser {
 		File f = new File ("reservations"); 
 
 		try {
-			// filOutputStream skal have en boolean værdi med som input, hvis false overskriver
-			// den filen, hvis true skriver den på enden af filen.
+
 			FileOutputStream fos = new FileOutputStream (f, false);
 			PrintStream output = new PrintStream(fos);
-
+			
+			// Det tjente beløb skrives til fil
+			output.println(resort.getResortAmount());
+			
+			// 
 			for(Reservation r : reservations)
 			{
 				StringBuilder sb = new StringBuilder();
@@ -255,7 +263,8 @@ public class Parser {
 				sb.append(r.getYear() + ";");
 				sb.append(r.getCottage().getCottageName() + ";");
 				sb.append(r.getCustomer().getcvrNr_cprNr() + ";");
-				sb.append(r.getID());
+				sb.append(r.getID() + ";");
+				sb.append(r.getTotalPrice());
 
 				output.println(sb.toString());
 				 
@@ -265,10 +274,7 @@ public class Parser {
 
 		catch (IOException e) 
 		{
-			System.out.println("error");
+			System.out.println("File not found!");
 		}
 	}
-	
-
-
 }

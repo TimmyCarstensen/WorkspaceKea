@@ -5,6 +5,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -25,22 +26,16 @@ import model.Resort;
 public class CreateCustomer extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField txtName;
-	private JTextField txtTelephoneNumber;
-	private JTextField txtAdress;
-	private JTextField txtEmail;
-	private JTextField txtCvr_Cpr;	
-	private JRadioButton radioButtonFirm;
-	private JRadioButton radioButtonTourist;
-	private JButton buttonCancel;
-	private JButton buttonOk;
+	private JTextField txtName,txtTelephoneNumber,txtAdress,txtEmail,txtCvr_Cpr;	
+	private JRadioButton radioButtonFirm,radioButtonTourist;
+	private JButton buttonCancel,buttonOk;
 	private boolean from_CreateReservation;
 	
 	public CreateCustomer(final Resort resort, final Main main, final boolean from_CreateReservation)
 	{
 		this.from_CreateReservation = from_CreateReservation;
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setSize(new Dimension(600,300));
+		setSize(new Dimension(400,300));
 		setLayout(new BorderLayout());
 		setTitle(" Create Customer ");
 
@@ -51,33 +46,47 @@ public class CreateCustomer extends JFrame implements ActionListener {
 		this.txtEmail = new JTextField();
 		this.txtCvr_Cpr = new JTextField();
 
-		JPanel Center = new JPanel(new GridLayout(8,1));
-//		
-//		this.txtName.setOpaque(true);
-//		this.txtTelephoneNumber.setOpaque(true);
-//		this.txtAdress.setOpaque(true);
-//		this.txtEmail.setOpaque(true);
-//		this.txtCvr_Cpr.setOpaque(true);
-//		this.txtName.setBackground(Color.WHITE);
+		JPanel Center = new JPanel(new GridLayout(6,1));
+		Center.setBackground(Color.DARK_GRAY);
+
 		
-		Center.add(new JLabel(" Name "));
+		JLabel name = new JLabel(" Name : ");
+		name.setForeground(Color.WHITE);
+		Center.add(name);
 		Center.add(txtName);
-		Center.add(new JLabel(" Telephone Number "));
+		JLabel telephoneNumber = new JLabel(" Telephone Number :");
+		telephoneNumber.setForeground(Color.WHITE);
+		Center.add(telephoneNumber);
 		Center.add(txtTelephoneNumber);
-		Center.add(new JLabel(" Adress "));
+		JLabel adress = new JLabel(" Adress :");
+		adress.setForeground(Color.WHITE);
+		Center.add(adress);
 		Center.add(txtAdress);
-		Center.add(new JLabel(" Email "));
+		JLabel email = new JLabel(" Email : ");
+		email.setForeground(Color.WHITE);
+		Center.add(email);
 		Center.add(txtEmail);
-		Center.add(new JLabel(" Cvr or Cpr "));
+		JLabel cvrorcpr = new JLabel("Cvr or Cpr");
+		cvrorcpr.setForeground(Color.WHITE);
+		Center.add(cvrorcpr);
 		Center.add(txtCvr_Cpr);
 		
-//		Center.setBackground(Color.DARK_GRAY);
+
 		
 
 		JPanel North = new JPanel(new GridLayout(1,2));
+		North.setBackground(Color.DARK_GRAY);
+		
 		this.radioButtonFirm = new JRadioButton(" Firm ", true);
 		this.radioButtonTourist = new JRadioButton(" Tourist ", false);
-		North.add(new JLabel("Customer Information"));
+		radioButtonFirm.setBackground(Color.DARK_GRAY);
+		radioButtonFirm.setForeground(Color.WHITE);
+		radioButtonTourist.setBackground(Color.DARK_GRAY);
+		radioButtonTourist.setForeground(Color.WHITE);
+		
+		JLabel customerInfo = new JLabel(" Customer Info ");
+		customerInfo.setForeground(Color.WHITE);
+		North.add(customerInfo);
 		North.add(radioButtonFirm);
 		North.add(radioButtonTourist);
 
@@ -86,8 +95,9 @@ public class CreateCustomer extends JFrame implements ActionListener {
 		ButtonGroup Group = new ButtonGroup();
 		Group.add(radioButtonFirm);
 		Group.add(radioButtonTourist);
-
+		
 		JPanel South = new JPanel(new GridLayout(1,2));
+		South.setBackground(Color.DARK_GRAY);
 		this.buttonOk = new JButton(" Ok ");
 		this.buttonCancel = new JButton(" Cancel ");
 
@@ -129,14 +139,14 @@ public class CreateCustomer extends JFrame implements ActionListener {
 					typeOfCustomer = 't';
 				}
 				
-				String a = txtName.getText();
-				String b = txtTelephoneNumber.getText();
-				String c = txtAdress.getText();
-				String d = txtEmail.getText();
-				String f = txtCvr_Cpr.getText();
+				String customerName = txtName.getText();
+				String customerTelephone = txtTelephoneNumber.getText();
+				String customerAddress = txtAdress.getText();
+				String customerEmail = txtEmail.getText();
+				String customerCvr_Cpr = txtCvr_Cpr.getText();
 				
 				try{
-				if(a.isEmpty() || b.isEmpty() || c.isEmpty() || d.isEmpty() || f.isEmpty())
+				if(customerName.isEmpty() || customerTelephone.isEmpty() || customerAddress.isEmpty() || customerEmail.isEmpty() || customerCvr_Cpr.isEmpty())
 				{
 					throw new Exception();
 				}
@@ -146,14 +156,14 @@ public class CreateCustomer extends JFrame implements ActionListener {
 					FilledOutFields = false;
 				}
 				if(FilledOutFields){
-				resort.createCustomer(typeOfCustomer, txtName.getText(), txtTelephoneNumber.getText(), txtAdress.getText(), txtEmail.getText(), txtCvr_Cpr.getText());
+				resort.createCustomer(typeOfCustomer, customerName, customerTelephone, customerAddress, customerEmail, customerCvr_Cpr);
 
 				JOptionPane.showMessageDialog(null, "Customer is created with following information:\n" + 
-													"Name: " + a + "\n" + 
-													"Telephonenumber: " + b + "\n" +
-													"Adress: " + c + "\n" + 
-													"Email: " + d + "\n" + 
-													"Cvr/Cpr number: " + f + "\n");
+													"Name: " + customerName + "\n" + 
+													"Telephonenumber: " + customerTelephone + "\n" +
+													"Adress: " + customerAddress + "\n" + 
+													"Email: " + customerEmail + "\n" + 
+													"Cvr/Cpr number: " + customerCvr_Cpr + "\n");
 				main.updateCustomerTable();
 				if(from_CreateReservation)
 				{

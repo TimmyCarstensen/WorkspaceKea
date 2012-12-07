@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -36,6 +37,8 @@ public class CreateReservation extends JFrame implements ActionListener
 	private JComboBox<String> jcbCustomer;
 	private Resort resort;
 	private Main main;
+	
+
 
 	public CreateReservation(Resort resort, Main main) throws IOException
 	{
@@ -49,7 +52,7 @@ public class CreateReservation extends JFrame implements ActionListener
 		JPanel topNorth = new JPanel(new GridLayout(2,1));
 		JPanel topNorthNorth = new JPanel(new FlowLayout());
 		JPanel TopNorthSouth = new JPanel(new GridLayout(2,2));
-		
+
 		JPanel mainCenter = new JPanel(new BorderLayout());
 		JPanel centerNorth = new JPanel (new GridLayout(2,2));
 		JPanel centerCenter = new JPanel (new GridLayout(1,3));
@@ -59,9 +62,10 @@ public class CreateReservation extends JFrame implements ActionListener
 		JPanel buttomSouthSouth = new JPanel(new FlowLayout());
 		JPanel buttomSouthNorth = new JPanel(new FlowLayout());
 
+
 		// Add Customer combobox
 		this.jcbCustomer = new JComboBox<String>(this.resort.getCustomerArray());
-		
+
 		//Radiobuttons for cottagetype initialised
 		this.rbncottageTypeStandard = new JRadioButton("Standard");
 		this.rbncottageTypeLuxury = new JRadioButton("Luxury");
@@ -86,69 +90,109 @@ public class CreateReservation extends JFrame implements ActionListener
 		this.ok = new JButton("OK");
 		this.cancel = new JButton("Cancel");
 		this.CreateCustomer = new JButton("Create Customer");
+		
 
 		// Actionslisteners are assigned
 		this.ok.addActionListener(this);
 		this.cancel.addActionListener(this);
 		this.CreateCustomer.addActionListener(this);
 
-		// North layout is add
-		topNorthNorth.add(new JLabel("Create Reservation"));
-		TopNorthSouth.add(new JLabel(" Choose Customer: "));
-		TopNorthSouth.add(buttomSouthNorth.add(this.jcbCustomer));
-		TopNorthSouth.add(new JLabel(" Or Create Customer: "));
+		// North layout is added
+		JLabel createReservation = new JLabel("Create Reservation");
+		createReservation.setForeground(Color.WHITE);
+		topNorthNorth.add(createReservation);
 		
+		JLabel chooseCustomer = new JLabel(" Choose Customer ");
+		chooseCustomer.setForeground(Color.WHITE);
+		TopNorthSouth.add(chooseCustomer);
+		
+		TopNorthSouth.add(buttomSouthNorth.add(this.jcbCustomer));
+		
+		
+		JLabel createCustomer = new JLabel(" Or Create Customer ");
+		createCustomer.setForeground(Color.WHITE);
+		TopNorthSouth.add(createCustomer);
 		TopNorthSouth.add(this.CreateCustomer);
 		topNorth.add(topNorthNorth, new FlowLayout());
 		topNorth.add(TopNorthSouth, new FlowLayout());
-		
-		
-		
+
 		add(topNorth,BorderLayout.NORTH);
 
-		// centerLayout is added
-		centerNorth.add(new JLabel("First week"));
+		// First week og end week!
+		JLabel firstWeek = new JLabel("First Week");
+		firstWeek.setForeground(Color.WHITE);
+		centerNorth.add(firstWeek);
+		
 		centerNorth.add(weekStart);
-		centerNorth.add(new JLabel("Last week"));
+		
+		
+		
+		JLabel endWeek = new JLabel("Last Week");
+		endWeek.setForeground(Color.WHITE);
+		centerNorth.add(endWeek);
+		
 		centerNorth.add(weekEnd);
+		
 		mainCenter.add(centerNorth,BorderLayout.NORTH);
 
-		centerCenter.add(new JLabel("Type of cottage"));
+		
+		// Beds og TypeofCottage!!
+		JLabel choosetype = new JLabel("Type of Cottage");
+		choosetype.setForeground(Color.WHITE);
+		centerCenter.add(choosetype);
 		centerCenter.add(this.rbncottageTypeStandard);
 		centerCenter.add(this.rbncottageTypeLuxury);
-		mainCenter.add(centerCenter,BorderLayout.CENTER);
+		
 
-		centerSouth.add(new JLabel("Number of beds"));
+		JLabel choosebeds = new JLabel("Beds");
+		choosebeds.setForeground(Color.WHITE);
+		centerSouth.add(choosebeds);
 		centerSouth.add(this.rbnfourBeds);
 		centerSouth.add(this.rbnsixBeds);
 		centerSouth.add(this.rbneightBeds);
 		centerSouth.add(this.rbntwelveBeds);
+		
+		mainCenter.add(centerCenter,BorderLayout.CENTER);
 		mainCenter.add(centerSouth, BorderLayout.SOUTH);
-
+		
+		
 		add(mainCenter,BorderLayout.CENTER);
 
-		
-		
+
+
 		buttomSouthSouth.add(ok);
 		buttomSouthSouth.add(cancel);
-		
+
 		buttomSouth.add(buttomSouthSouth,BorderLayout.SOUTH);
 
-		// colors
-		//		rbnfourBeds.setBackground(Color.PINK);
-		//		rbnsixBeds.setBackground(Color.PINK);
-		//		rbneightBeds.setBackground(Color.PINK);
-		//		rbntwelveBeds.setBackground(Color.PINK);
-		//		rbncottageTypeLuxury.setBackground(Color.PINK);
-		//		rbncottageTypeStandard.setBackground(Color.PINK);
-		//		topNorth.setBackground(Color.PINK);
-		//		mainCenter.setBackground(Color.PINK);
-		//		centerNorth.setBackground(Color.PINK);
-		//		centerCenter.setBackground(Color.PINK);
-		//		centerSouth.setBackground(Color.PINK);
-		//		buttomSouth.setBackground(Color.PINK);
-		//		buttomSouthSouth.setBackground(Color.PINK);
-		//		buttomSouthNorth.setBackground(Color.PINK);	
+
+//colors 
+
+		rbnfourBeds.setForeground(Color.WHITE);
+		rbnfourBeds.setBackground(Color.DARK_GRAY);
+		rbnsixBeds.setBackground(Color.DARK_GRAY);
+		rbnsixBeds.setForeground(Color.WHITE);
+		rbneightBeds.setBackground(Color.DARK_GRAY);
+		rbneightBeds.setForeground(Color.WHITE);
+		rbntwelveBeds.setBackground(Color.DARK_GRAY);
+		rbntwelveBeds.setForeground(Color.WHITE);
+
+		rbncottageTypeLuxury.setBackground(Color.DARK_GRAY);
+		rbncottageTypeLuxury.setForeground(Color.WHITE);
+		rbncottageTypeStandard.setBackground(Color.DARK_GRAY);
+		rbncottageTypeStandard.setForeground(Color.WHITE);
+
+
+		topNorth.setBackground(Color.DARK_GRAY);
+		TopNorthSouth.setBackground(Color.DARK_GRAY);
+		topNorthNorth.setBackground(Color.DARK_GRAY);
+		mainCenter.setBackground(Color.DARK_GRAY);
+		centerNorth.setBackground(Color.DARK_GRAY);
+		centerCenter.setBackground(Color.DARK_GRAY);
+		centerSouth.setBackground(Color.DARK_GRAY);
+		buttomSouth.setBackground(Color.DARK_GRAY);
+		buttomSouthSouth.setBackground(Color.DARK_GRAY);
+		buttomSouthNorth.setBackground(Color.DARK_GRAY);	
 
 		add(buttomSouth, BorderLayout.SOUTH);
 
@@ -163,6 +207,7 @@ public class CreateReservation extends JFrame implements ActionListener
 		}
 		if(e.getSource().equals(this.ok))
 		{
+			// Reservation bliver initialiseret.
 			int startWeek = Integer.parseInt(this.weekStart.getText());
 			int endWeek = Integer.parseInt(this.weekEnd.getText());
 			int[] weeks = resort.createWeekArray(startWeek, endWeek);
@@ -198,13 +243,13 @@ public class CreateReservation extends JFrame implements ActionListener
 
 			String[] s = ((String) (this.jcbCustomer.getSelectedItem())).split(" ");
 			Customer customer = resort.findCustomer(s[0]);
-			
+
 			Reservation r = new Reservation(weeks, cottage, customer); 
 			int choice = JOptionPane.showConfirmDialog(null, "Total price: " + r.getTotalPrice());
-			
+
 			if(choice == JOptionPane.NO_OPTION)
 				return;
-			
+
 			else if (choice == JOptionPane.YES_OPTION)
 			{
 				resort.createReservation(weeks, resort.getYear(), cottage, customer);
@@ -214,27 +259,18 @@ public class CreateReservation extends JFrame implements ActionListener
 						"Weeks: " + weekprint.toString() + "\n" + 
 						"Year: " + resort.getYear() + "\n" +
 						"Total price: " + r.getTotalPrice());
-				
+
 				main.updateReservationTable();
 				this.dispose();	
 			}
-			
-			
+
+
 		}
 		if(e.getSource().equals(CreateCustomer))
 		{
 			new CreateCustomer(resort, main, true);
 			dispose();
-			
+
 		}
 	}
 }
-//		BufferedImage buttonIcon = ImageIO.read(new File("canceltest.jpg"));
-//		cancel = new JButton(new ImageIcon(buttonIcon));
-//		cancel.setBorder(BorderFactory.createEmptyBorder());
-//		cancel.setContentAreaFilled(false);
-//		
-//		BufferedImage Okicon = ImageIO.read(new File("oktest.png"));
-//		ok = new JButton(new ImageIcon(Okicon));
-//		ok.setBorder(BorderFactory.createEmptyBorder());
-//		ok.setContentAreaFilled(false);

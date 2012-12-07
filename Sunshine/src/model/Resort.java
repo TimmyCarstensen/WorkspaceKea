@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * 
+ * Systemet skal lukkes ned hver dag! - gerne flere gange om dagen, for at sikre dataen.
  * @author Timmy Carstensen
  *
  */
@@ -18,8 +18,10 @@ public class Resort {
 	private Parser parser;
 	private String[] weeksAll = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52"};
 	private String[] year20Forward;
+	private int resortAmount;
+
 	/**
-	 * Systemet skal lukkes ned hver dag!
+	 * Timmy
 	 */
 	public Resort()
 	{
@@ -28,27 +30,23 @@ public class Resort {
 		this.customers = new ArrayList <Customer>();
 		this.parser = new Parser(this);
 
+		// Tiden initialiseres
 		time();
 		this.season = seasonOfWeek(this.weekNumber);
+
+		// Et string array initialiseres for at kunne søge på reservationer.
 		createYears20Forward();
 
-
+		// Her læses data ind i systemet
 		parser.readInFileCottages(cottages);
 		parser.readInFileCustomers(customers);
 		parser.readFromFileReservation(this.reservations);
-
-		//		Se udprint af status fra cottages arrayList ;)
-		//		for(Cottage c : cottages)
-		//		{
-		//			c.printStatus();
-		//		}
-
-		// Se vores flotte system print out! :D Wuhaaaaj :D
-//		System.out.println("Årstal: " + this.year + "\nUge nr: " + weekNumber);
 	}
 
 	/**
 	 * Hisayo, Fahiya og Timmy
+	 * Her holdes tiden i systemet op med tiden på computeren og er dermed synkroniseret.
+	 * Fejler tiden på computeren skader det systemet!
 	 */
 	public void time()
 	{
@@ -57,13 +55,19 @@ public class Resort {
 		year = c.get(Calendar.YEAR);
 	}
 
-	//Mangler implementation!!!!
-	public void pay()
+	/**
+	 * Tager mod betaling.
+	 * @param r
+	 */
+	public void pay(Reservation r)
 	{
-
+		this.resortAmount += r.getTotalPrice();
 	}
 
+
+
 	/**
+	 * Her tjekkes ledighed af hyttetype ud fra uger og året man ønsker reservation.
 	 * return true means cottage available of this type, false mean no cottage
 	 * of this type availably.
 	 * @param weeks
@@ -80,9 +84,10 @@ public class Resort {
 		}
 		return false;
 	}
-	
+
 	/**
-	 * can return null
+	 * Timmy
+	 * Her fås en ledig hytte ud fra parametre omkring senge og type, samt uger og år.
 	 * @param weeks
 	 * @param year
 	 * @param typeOfCottage
@@ -96,7 +101,7 @@ public class Resort {
 			if(c.checkVacancyWeeks(weeks, year) && c.getTypeOfCottage() == typeOfCottage && c.getBeds() == beds)
 				return c;
 		}
-		
+
 		return null;
 	}
 
@@ -113,6 +118,12 @@ public class Resort {
 		this.reservations.add(r); 
 	}
 
+	/**
+	 * Denne bruges til at skabe et array fra en uge til en uge af uger.
+	 * @param startWeek
+	 * @param endWeek
+	 * @return
+	 */
 	public int[] createWeekArray(int startWeek, int endWeek)
 	{
 		int[] weeks = new int[endWeek - startWeek + 1];
@@ -123,11 +134,11 @@ public class Resort {
 			startWeek++;
 			i++;
 		}
-		
 		return weeks;
 	}
-	
+
 	/**
+	 * Opretter kunde, definere typen ud fra en char.
 	 * Kenneth
 	 */
 	public void createCustomer(char typeOfCustomer, String name, String telephoneNumber, String adress, String email, String cvrNr_cprNr)
@@ -145,6 +156,7 @@ public class Resort {
 	}
 
 	/**
+	 * Søger efter hytte ud fra det unikke navn vi har givet hytte.
 	 * Hisayo, Farhiya og Matias
 	 */
 	public Cottage findCottageName(String CottageName)
@@ -163,8 +175,8 @@ public class Resort {
 
 	/**
 	 * Peter & Kenneth
+	 * Finder en kunde ud fra cvr_cpr_nr!
 	 */
-
 	public Customer findCustomer (String cvrNr_cprNr) 
 	{ 
 		for (Customer c : customers)
@@ -179,6 +191,7 @@ public class Resort {
 
 	/**
 	 * Lavet af Farhiya og Matias
+	 * Finder en reservation ud fra ID
 	 * @param ID
 	 * @return
 	 */
@@ -191,23 +204,24 @@ public class Resort {
 		}
 		return null;
 	}
-	
-	/**
-	 * Matias
-	 * Skal bruges til at tjekke inden en cottage skal slettes.
-	 * @param cottageName
-	 * @return
-	 */
-	public boolean isCottageInArray(String cottageName)
-	{
-		for( Cottage c : cottages)
-		{
-			if(cottageName.equalsIgnoreCase(c.getCottageName()))
-				return true;
-		}
-		return false;
-	}
 
+	/**
+	 * Bruges til modtagelse af betaling for reservation. Sætter prisen i reservation til 0
+	 * og summer resort's amount. 
+	 * @param ID
+	 */
+	public void payReservation(String ID)
+	{
+		for(Reservation r : reservations)
+		{
+			if(r.getID().equalsIgnoreCase(ID))
+			{
+				pay(r);
+				r.payForReservation();
+			}
+
+		}
+	}
 
 	/**
 	 * Kenneth
@@ -226,10 +240,11 @@ public class Resort {
 		}
 	}
 
-	
-	
+
+
 	/**
 	 * Matias
+	 * Sletter en hytte.
 	 * @param Cottagename
 	 */
 	public void deleteCottage(String cottageName)
@@ -241,12 +256,15 @@ public class Resort {
 				cottages.remove(c);
 				return;
 			}
-				
+
 		}
 	}
 
-
-	// This function make that a customer can't be deleted if the customer has a reservation.
+	/**
+	 * Denne funktion tjekker at en kunde ikke kan slettes, hvis denne har reservation.
+	 * @param cvr_cpr_nr
+	 * @return
+	 */
 	public boolean doesCustomerHaveReservation(String cvr_cpr_nr)
 	{
 		for(Reservation r : reservations)
@@ -254,10 +272,14 @@ public class Resort {
 			if(r.getCustomer().getcvrNr_cprNr().equalsIgnoreCase(cvr_cpr_nr))
 				return true;
 		}
-		
+
 		return false;
 	}
-	
+
+	/**
+	 * Sletter en kunde
+	 * @param cvr_cpr_nr
+	 */
 	public void deleteCustomer(String cvr_cpr_nr)
 	{
 		for(Customer c : this.customers)
@@ -269,7 +291,11 @@ public class Resort {
 			}
 		}
 	}
-	
+
+	/**
+	 * Sletter en reservation
+	 * @param ID
+	 */
 	public void deleteReservation(String ID)
 	{
 		for(Reservation r : this.reservations)
@@ -281,7 +307,7 @@ public class Resort {
 			}
 		}
 	}
-	
+
 	/**
 	 * Lavet af Peter
 	 * Bruges både af Reservationsklassen og resortklassen!
@@ -297,18 +323,20 @@ public class Resort {
 	}
 
 	/**
-	 *Farhiya & Hisayo
+	 *Lavet af Farhiya & Hisayo
+	 *Sætter en hytte til renovation.
 	 */
 	public void createRenovation(String cottageName)
 	{ 
 		findCottageName(cottageName).setRenovation(true);
 		System.out.println(findCottageName(cottageName).getRenovation());
-		
-		
+
+
 	}
 
 	/**
-	 * Farhiya & Hisayo
+	 * Lavet af Farhiya & Hisayo
+	 * Fjerner en renovation
 	 * @param cottageName
 	 */
 	public void deleteRenovation(String cottageName)
@@ -324,7 +352,8 @@ public class Resort {
 	}
 
 	/**
-	 * Timmy
+	 * Lavet af Timmy
+	 * Sikre data, når programmet slettes
 	 */
 	public void quit()
 	{
@@ -334,10 +363,9 @@ public class Resort {
 	}
 
 	/**
-	 * 
+	 * Denne brugt af createReservation klassen der har en combobox med kunder der.
 	 * @return
 	 */
-	// Is used by reservationclass to create inputs to the combobox there.
 	public String[] getCustomerArray()
 	{
 		String[] customerArray = new String[customers.size()];
@@ -349,7 +377,10 @@ public class Resort {
 		}
 		return customerArray;
 	}
-	
+
+	/**
+	 * Denne bruges til at lave 20 år frem i tiden og give et input til combobox i Main.
+	 */
 	public void createYears20Forward()
 	{
 		int tempYear = this.year;
@@ -361,43 +392,54 @@ public class Resort {
 		}
 		this.year20Forward = year20Forward;
 	}
-	
-	
+
+	// En masser getters og setters
+
 	public String[] getWeeksAll()
 	{
 		return this.weeksAll;
 	}
-	
+
 	public String[] getYear20Forward()
 	{
 		return this.year20Forward;
 	}
-	
+
 	public Season getSeason()
 	{
 		return this.season;
+	}
+
+	public void setResortAmount(int amount)
+	{
+		this.resortAmount = amount;
+	}
+
+	public int getResortAmount()
+	{
+		return this.resortAmount;
 	}
 
 	public int getYear()
 	{
 		return this.year;
 	}
-	
+
 	public int getWeekNumber()
 	{
 		return this.weekNumber;
 	}
-	
+
 	public ArrayList<Cottage> getCottages()
 	{
 		return this.cottages;
 	}
-	
+
 	public ArrayList<Customer> getCustomer()
 	{
 		return this.customers;
 	}
-	
+
 	public ArrayList<Reservation> getReservation()
 	{
 		return this.reservations;

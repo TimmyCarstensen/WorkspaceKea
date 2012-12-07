@@ -35,7 +35,11 @@ public class SaveWhenClose implements WindowListener
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	/**
+	 * lavet af Kenneth
+	 * Gemmer systemet ved et klik på krydset.
+	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
 		int choice = JOptionPane.showConfirmDialog(null, "Do you want to save?");

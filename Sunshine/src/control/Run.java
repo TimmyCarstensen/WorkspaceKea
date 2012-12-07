@@ -1,34 +1,14 @@
 package control;
 
-import view.Main;
+import java.io.IOException;
 
-
+import view.Log;
 
 public class Run 
 {
 	
-	public static void main(String args[])
+	public static void main(String args[]) throws IOException
 	{
-		
-		new Main();
-		
-//		Resort r = new Resort();
-//		new CreateReservation(r);
-		
-		
-		
-		
-		
-//		int[] test = r.createWeekArray(24, 27);
-//		
-//		for(int i : test)
-//		{
-//			System.out.println(i);
-//		}
-//		
-//		r.printCottageArray();
-//		r.deleteCottage("405C");
-//		r.printCottageArray();
-		
+		new Log();
 	}
 }

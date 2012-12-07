@@ -38,6 +38,7 @@ public abstract class Cottage {
 	}
 	
 	/**
+	 * Lavet af Timmy
 	 * Bruges hvis vi sletter en reservation, så sletter vi også statuser.
 	 * @param weeks
 	 * @param year
@@ -62,8 +63,9 @@ public abstract class Cottage {
 	}
 	
 	/**
+	 * Lavet af Timmy
 	 * Denne bruges i forhold til sikkerhed ved sletning af cottage.
-	 * @return
+	 * @return true if cottage has reservations otherwise false
 	 */
 	public boolean isReserved()
 	{
@@ -76,6 +78,7 @@ public abstract class Cottage {
 	
 	/**
 	 * Lavet af Timmy
+	 * Søger efter en specifik status i cottage
 	 * @param week
 	 * @param year
 	 * @return True if cottage is available, otherwise false.
@@ -94,6 +97,8 @@ public abstract class Cottage {
 	
 	/**
 	 * Lavet af Timmy
+	 * Denne funktioner virker ved at tjekke ledighed af flere uger og benytter sig af
+	 * chechVacancy som tjekker på en enkelt uge og status.
 	 * @param weeks
 	 * @param year
 	 * @return
@@ -116,21 +121,11 @@ public abstract class Cottage {
 		}
 		return is;
 	}
-	
-	
+		
 	public String getCottageName()
 	{
 		return this.CottageName;
 	}
-	
-	// Bruges til at teste om status er blevet tilføjet!
-		public void printStatus()
-		{
-			for(Status s : vacancy)
-			{
-				System.out.println("week " + s.getWeek() + ", Year " + s.getYear());
-			}
-		}
 	
 	public int getPrice()
 	{
@@ -152,11 +147,16 @@ public abstract class Cottage {
 		return typeOfCottage;
 	}
 	
+	public ArrayList<Status> getVacancy()
+	{
+		return this.vacancy;
+	}
+	
 	public void setRenovation(boolean renovation)
 	{
 		this.renovation = renovation;
 	}
 	
-	public ArrayList<Status> getVacancy(){return this.vacancy;}
+	
 
 }

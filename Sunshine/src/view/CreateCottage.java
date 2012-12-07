@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -21,19 +22,15 @@ import model.Resort;
  * @author Hisayo
  *
  */
-public class CreateCottage extends JFrame implements ActionListener{
+public class CreateCottage extends JFrame{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField txtName;
-	private JTextField txtBeds;
-	private JTextField txtPrice;
-	private JButton btnCancel;
-	private JButton btnOk;
-	private JRadioButton radioBtnS;
-	private JRadioButton radioBtnL;
+	private JTextField txtName,txtBeds,txtPrice;
+	private JButton btnCancel,btnOk;
+	private JRadioButton radioBtnS,radioBtnL;
 
 	public CreateCottage(final Resort resort, final Main main)
 	{
@@ -47,25 +44,38 @@ public class CreateCottage extends JFrame implements ActionListener{
 		this.txtPrice = new JTextField(8);
 
 		JPanel north = new JPanel( new GridLayout(3,3));
-		north.add(new JLabel(" Cottage Name : "));
+		
+		JLabel cottageName = new JLabel(" Cottage Name : ");
+		cottageName.setForeground(Color.WHITE);
+		JLabel beds = new JLabel(" Beds : ");
+		beds.setForeground(Color.WHITE);
+		JLabel price = new JLabel(" Price : ");
+		price.setForeground(Color.WHITE);
+		
+		north.add(cottageName);
 		north.add(txtName);
-		north.add(new JLabel(" Beds : "));
+		north.add(beds);
 		north.add(txtBeds);
-		north.add(new JLabel(" Price : "));
+		north.add(price);
 		north.add(txtPrice);
 
 
 		JPanel center = new JPanel(new GridLayout(1,2));
+		
 		this.radioBtnS = new JRadioButton("Standard", true);
 		this.radioBtnL = new JRadioButton("Luxury", false);
-
+		
+		
+		
 		final ButtonGroup bg = new ButtonGroup();
+		
 		bg.add(this.radioBtnL);
 		bg.add(this.radioBtnS);
-
-
-
-
+		radioBtnL.setForeground(Color.WHITE);
+		radioBtnS.setForeground(Color.WHITE);
+		radioBtnL.setBackground(Color.DARK_GRAY);
+		radioBtnS.setBackground(Color.DARK_GRAY);
+		
 		center.add(radioBtnS);
 		center.add(radioBtnL);
 
@@ -75,6 +85,13 @@ public class CreateCottage extends JFrame implements ActionListener{
 		this.btnCancel = new JButton("Cancel");
 		this.btnOk = new JButton("OK");
 
+		
+		north.setBackground(Color.DARK_GRAY);
+		south.setBackground(Color.DARK_GRAY);
+		center.setBackground(Color.DARK_GRAY);
+
+		
+		
 		btnCancel.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -83,6 +100,7 @@ public class CreateCottage extends JFrame implements ActionListener{
 			}
 		});
 		btnOk.addActionListener(new ActionListener(){
+			// Her oprettes en hytte
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				boolean FilledOutFields = true;
@@ -90,12 +108,12 @@ public class CreateCottage extends JFrame implements ActionListener{
 				if(radioBtnL.isSelected())
 					typeOfCottage = 'l';
 
-				String a = txtName.getText();
-				String b = txtBeds.getText();
-				String c = txtPrice.getText();
-
+				String cottageName = txtName.getText();
+				String cottagePrice = txtPrice.getText();
+				String cottageBeds = txtBeds.getText();
+				
 				try{
-					if(a.isEmpty() || b.isEmpty() || c.isEmpty())
+					if(cottageName.isEmpty() || cottageBeds.isEmpty() || cottagePrice.isEmpty())
 					{
 						throw new Exception();
 					}
@@ -106,11 +124,12 @@ public class CreateCottage extends JFrame implements ActionListener{
 				}
 				try{
 					if(FilledOutFields){
-						resort.createCottage(typeOfCottage, txtName.getText(), Integer.parseInt(txtPrice.getText()), Integer.parseInt(txtBeds.getText()), false);
+						// Hytten oprettes 
+						resort.createCottage(typeOfCottage, cottageName, Integer.parseInt(cottagePrice), Integer.parseInt(cottageBeds), false);
 						JOptionPane.showMessageDialog(null, "Cottage is created with following information:\n" + 
-															"Cottage Name: " + a +"\n" + 
-															"Number of Beds: " + b + "\n" + 
-															"Price for cottage: " + c );
+															"Cottage Name: " + cottageName +"\n" + 
+															"Number of Beds: " + cottageBeds + "\n" + 
+															"Price for cottage: " + cottagePrice );
 						main.updateCottageTable();
 						dispose();
 					}
@@ -129,11 +148,6 @@ public class CreateCottage extends JFrame implements ActionListener{
 		add(south,BorderLayout.SOUTH);
 
 		setVisible(true);
-
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
 
 	}
 }

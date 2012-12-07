@@ -9,7 +9,4 @@ public class StandardCottage extends Cottage{
 	{
 		super(typeOfCottage, cottageName, price, beds, renovation);
 	}
-	
-	
-
 }

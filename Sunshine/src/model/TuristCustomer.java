@@ -2,9 +2,7 @@ package model;
 
 
 /**
- * 
  * @author Farhia
- *
  */
 public class TuristCustomer extends Customer {
 
@@ -12,8 +10,4 @@ public class TuristCustomer extends Customer {
 	{
 		super(typeOfCustomer, name, telephoneNumber, adress, email, cprNr);
 	}	
-	
-	
-
-
 }

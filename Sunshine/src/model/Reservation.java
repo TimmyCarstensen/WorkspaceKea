@@ -8,9 +8,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 /**
- * 
  * @author Matias
- *
  */
 public class Reservation {
 
@@ -24,6 +22,7 @@ public class Reservation {
 	private Scanner input;
 	/**
 	 * Bruges af parser til at læse en simpel reservation ind, med string-typer for cottage og customer.
+	 * Timmy og Matias
 	 * @param weeks
 	 * @param totalPrice
 	 * @param cottageName
@@ -41,6 +40,7 @@ public class Reservation {
 	}
 	
 	/**
+	 * Timmy og Matias
 	 * Bruges af resort når vi skal oprette reservation via inputs fra den ansatte.
 	 * @param weeks
 	 * @param cottage
@@ -57,6 +57,13 @@ public class Reservation {
 		this.ID = createNumberID();
 	}
 
+	/**
+	 * Denne bruges til at tjekke prisen på en reservation. En reservation bliver aldrig oprettet
+	 * gennem denne constructor.
+	 * @param weeks
+	 * @param cottage
+	 * @param customer
+	 */
 	public Reservation(int[] weeks, Cottage cottage, Customer customer)
 	{
 		this.weeks = weeks;
@@ -67,10 +74,12 @@ public class Reservation {
 	
 	/**
 	 * Lavet af Timmy
+	 * Bruges til at give en reservation et unikt ID.
 	 */
 	public String createNumberID()
 	{
-		readInFile();
+		// Vi får altid det næste nummer.
+		readInIDFile();
 		int lenghtOfNumber = number.toString().length();
 		StringBuilder zeros = new StringBuilder();
 		int numberOfZeros = 6 - lenghtOfNumber;
@@ -79,20 +88,23 @@ public class Reservation {
 			zeros.append('0');
 			numberOfZeros--;
 		}
-
-		writeToFile();
+		
 		this.ID = "SUNRE" + 2012 + "100A" + zeros.toString() + number.intValue();
+		// Vi sørger for at nummeret bliver opdateret.
+		writeToIDFile();
 		
 		return this.ID;
 	}
 	
-	public void readInFile()
+	/**
+	 * Bruges til at læse hvad nummer reservationsID er kommet til.
+	 */
+	public void readInIDFile()
 	{
 		File f = new File("reservationID");
 		try 
 		{
 			this.input = new Scanner(f);
-
 			String line = input.nextLine();
 			this.number = Integer.parseInt(line);
 
@@ -102,8 +114,10 @@ public class Reservation {
 		}
 	}
 
-
-	public void writeToFile() 
+	/**
+	 * Skriver ud til fil og sikre at ID'et nummeret bliver opdateret.
+	 */
+	public void writeToIDFile() 
 	{
 		File f = new File ("reservationID"); 
 
@@ -133,6 +147,7 @@ public class Reservation {
 		double sum = 0.0;
 		double[] weekPrices = new double[weeks.length];
 		int i = 0;
+		// Beregner pris for hver enkelt uge.
 		for(int week : weeks){
 			if (this.customer.getTypeOfCustomer() == 'f')
 			{
@@ -152,12 +167,21 @@ public class Reservation {
 			}
 			i++;
 		}
-		
+		// Lægger prisen sammen for alle ugerne.
 		for(double weekPrice : weekPrices)
 		{
 			sum = sum + weekPrice;
 		}
+		// TotalPrice bliver sat til den samlede pris
 		this.totalPrice = sum;
+	}
+	
+	/**
+	 * Denne bruges til at registrere en betaling og sætter beløbet til 0.
+	 */
+	public void payForReservation()
+	{
+		this.totalPrice = 0;
 	}
 	
 	public int[] getWeeks() {
@@ -195,6 +219,11 @@ public class Reservation {
 	public double getTotalPrice()
 	{
 		return this.totalPrice;
+	}
+
+	public void setTotalPrice(double price)
+	{
+		this.totalPrice = price;
 	}
 	
 	public String getID()

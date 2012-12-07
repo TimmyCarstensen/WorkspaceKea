@@ -9,6 +9,12 @@ import model.Customer;
 import model.Reservation;
 import model.Resort;
 
+/**
+ * 
+ * @author Timmy Carstensen
+ *
+ */
+
 public class TableCreator {
 
 	private Resort resort;
@@ -22,7 +28,7 @@ public class TableCreator {
 	public DefaultTableModel getCottageModel()
 	{
 		DefaultTableModel model = new DefaultTableModel();
-		model.setColumnIdentifiers(new String[] {"Cottage Name","Price","Beds","Type","Renovation"});
+		model.setColumnIdentifiers(new String[] {"Cottage Name","Price","Beds","Type"});
 		model.setRowCount(resort.getCottages().size());
 		int row = 0;
 		for (Cottage cottage : resort.getCottages()) 
@@ -36,11 +42,6 @@ public class TableCreator {
 			else if(cottage.getTypeOfCottage() == 'l')
 				typeOfCottage = "Luxury";
 			model.setValueAt(typeOfCottage, row, 3);
-			if(cottage.getRenovation())
-				model.setValueAt("Under Renovation", row, 4);
-			else
-				model.setValueAt("No Renovation at this time", row, 4);
-			row++;
 		}
 
 
@@ -50,7 +51,7 @@ public class TableCreator {
 	public void updateCottageModel(JTable table)
 	{
 		DefaultTableModel model = new DefaultTableModel();
-		model.setColumnIdentifiers(new String[] {"Cottage Name","Price","Beds","Type","Renovation"});
+		model.setColumnIdentifiers(new String[] {"Cottage Name","Price","Beds","Type"});
 		model.setRowCount(resort.getCottages().size());
 		int row = 0;
 		for (Cottage cottage : resort.getCottages()) 
@@ -64,10 +65,6 @@ public class TableCreator {
 			else if(cottage.getTypeOfCottage() == 'l')
 				typeOfCottage = "Luxury";
 			model.setValueAt(typeOfCottage, row, 3);
-			if(cottage.getRenovation())
-				model.setValueAt("Under Renovation", row, 4);
-			else
-				model.setValueAt("No Renovation at this time", row, 4);
 			row++;
 		}
 		table.setModel(model);
@@ -76,20 +73,21 @@ public class TableCreator {
 	public void updateCottageModelSpecific(JTable table, int week, int year)
 	{
 		DefaultTableModel model = new DefaultTableModel();
-		model.setColumnIdentifiers(new String[] {"Cottage Name","Beds","Type","Status"});
+		model.setColumnIdentifiers(new String[] {"Cottage Name","Price","Beds","Type","Status"});
 		model.setRowCount(resort.getCottages().size());
 		int row = 0;
 		for (Cottage cottage : resort.getCottages()) 
 		{	
 			
 			model.setValueAt(cottage.getCottageName(), row, 0);
-			model.setValueAt(cottage.getBeds(), row, 1);
+			model.setValueAt(cottage.getPrice(), row, 1);
+			model.setValueAt(cottage.getBeds(), row, 2);
 			String typeOfCottage = "";
 			if(cottage.getTypeOfCottage() == 's')
 				typeOfCottage = "Standard";
 			else if(cottage.getTypeOfCottage() == 'l')
 				typeOfCottage = "Luxury";
-			model.setValueAt(typeOfCottage, row, 2);
+			model.setValueAt(typeOfCottage, row, 3);
 			String status = "";
 			if(!cottage.checkVacancy(week, year))
 				status = "Booked";
@@ -97,8 +95,7 @@ public class TableCreator {
 				status = "Under Renovation";
 			else 
 				status = "Available";
-			
-			model.setValueAt(status, row, 3);
+			model.setValueAt(status, row, 4);
 			row++;
 		}
 
@@ -109,7 +106,7 @@ public class TableCreator {
 	public DefaultTableModel getCustomerModel()
 	{
 		DefaultTableModel model = new DefaultTableModel();
-		model.setColumnIdentifiers(new String[] {"Cvr / Cpr", "Name","Adress","Telephone","Email","Customer Type" });
+		model.setColumnIdentifiers(new String[] {"Cvr / Cpr", "Name","Address","Telephone","Email","Customer Type" });
 		model.setRowCount(resort.getCustomer().size());
 		int row = 0;
 		for (Customer customer : resort.getCustomer()) {
@@ -134,7 +131,7 @@ public class TableCreator {
 	public void updateCustomerModel(JTable table)
 	{
 		DefaultTableModel model = new DefaultTableModel();
-		model.setColumnIdentifiers(new String[] {"Cvr / Cpr", "Name","Adress","Telephone","Email", "Customer Type"});
+		model.setColumnIdentifiers(new String[] {"Cvr / Cpr", "Name","Address","Telephone","Email", "Customer Type"});
 		model.setRowCount(resort.getCustomer().size());
 		int row = 0;
 		for (Customer customer : resort.getCustomer()) {
@@ -158,7 +155,7 @@ public class TableCreator {
 	public DefaultTableModel getReservationModel()
 	{
 		DefaultTableModel model = new DefaultTableModel();
-		model.setColumnIdentifiers(new String[] {"ID", "Cottage","Customer","Total Price","Week","Year"});
+		model.setColumnIdentifiers(new String[] {"ID", "Cottage","Customer","Amount Due","Week","Year"});
 		model.setRowCount(resort.getReservation().size());
 		int row = 0;
 		for (Reservation reservation : resort.getReservation()) 
@@ -182,7 +179,7 @@ public class TableCreator {
 	public void updateReservationModel(JTable table)
 	{
 		DefaultTableModel model = new DefaultTableModel();
-		model.setColumnIdentifiers(new String[] {"ID","Cottage","Customer","Total Price","Week","Year"});
+		model.setColumnIdentifiers(new String[] {"ID","Cottage","Customer","Amount Due","Week","Year"});
 		model.setRowCount(resort.getReservation().size());
 		int row = 0;
 		for (Reservation reservation : resort.getReservation()) 

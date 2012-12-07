@@ -52,17 +52,23 @@ public abstract class Customer {
 		this.email = email;
 	}
 	
-	public void setTypeOfCustomer(char typeOfCustomer) {
+	public void setTypeOfCustomer(char typeOfCustomer) 
+	{
 		this.typeOfCustomer = typeOfCustomer;
 	}
 	
-	public void setcvrNr_cprNr(String cvrNr_cprNr){this.cvrNr_cprNr = cvrNr_cprNr;}
+	public void setcvrNr_cprNr(String cvrNr_cprNr)
+	{
+		this.cvrNr_cprNr = cvrNr_cprNr;
+	}
 	
-	public String getName(){
+	public String getName()
+	{
 		return this.name;
-		}
+	}
 
-	public String getTelephoneNumber(){
+	public String getTelephoneNumber()
+	{
 		return this.telephoneNumber;
 	}
 
