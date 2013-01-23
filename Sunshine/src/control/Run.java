@@ -2,13 +2,12 @@ package control;
 
 import java.io.IOException;
 
-import view.Log;
+import view.Login;
 
 public class Run 
 {
-	
 	public static void main(String args[]) throws IOException
 	{
-		new Log();
+		new Login();
 	}
 }

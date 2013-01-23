@@ -102,29 +102,40 @@ public class CreateCottage extends JFrame{
 		btnOk.addActionListener(new ActionListener(){
 			// Her oprettes en hytte
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) 
+			{
+				// FilledOutFields bruges til at stoppe kode, hvis ikke felterne er udfyldt.
 				boolean FilledOutFields = true;
+				
+				// Her tjekker vi kun for på Radiobutten for luxury cottage, ellers er det s for standard.
 				char typeOfCottage = 's';
 				if(radioBtnL.isSelected())
 					typeOfCottage = 'l';
 
+				// Her hentes teksten fra tekstfelterne, henholdvis navn, pris og senge.
 				String cottageName = txtName.getText();
 				String cottagePrice = txtPrice.getText();
 				String cottageBeds = txtBeds.getText();
 				
 				try{
+					// Tjekker om ansat har indtaster information i tekstfelterne
 					if(cottageName.isEmpty() || cottageBeds.isEmpty() || cottagePrice.isEmpty())
 					{
+						// Exception kastes, hvis tekstfelterne ikke er udfyldt
 						throw new Exception();
 					}
 				}catch(Exception ee)
 				{
+					// Ansat får besked at tekstfelterne mangler udfyldelse
 					JOptionPane.showMessageDialog(null, "Fill out the fields");
+					// Sættes til false pga. exception kastet ved manglende udfyldning af tekstfelterne.
 					FilledOutFields = false;
 				}
 				try{
+					// Hvis denne er false, så er tekstfelterne ikke udfyldt, der sker således ikke mere!
+					// ellers køres koden neden for og hytte oprettes.
 					if(FilledOutFields){
-						// Hytten oprettes 
+						// Hvis ikke ansat benytter tal til pris og senge kastes exception.
 						resort.createCottage(typeOfCottage, cottageName, Integer.parseInt(cottagePrice), Integer.parseInt(cottageBeds), false);
 						JOptionPane.showMessageDialog(null, "Cottage is created with following information:\n" + 
 															"Cottage Name: " + cottageName +"\n" + 
@@ -135,6 +146,7 @@ public class CreateCottage extends JFrame{
 					}
 				}catch(NumberFormatException ee)
 				{
+					// Exception kastes hvis ikke pris og senge er tal!
 					JOptionPane.showMessageDialog(null, "You must enter number with beds and price!");
 				}
 			}

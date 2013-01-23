@@ -58,7 +58,7 @@ public class Main extends JFrame implements ActionListener
 
 	public Main() throws IOException
 	{
-		
+
 		// Here our resort is initialised!
 		this.resort = new Resort();
 
@@ -74,7 +74,7 @@ public class Main extends JFrame implements ActionListener
 		mb = new JMenuBar();
 		c.add("North",mb);
 		file = new JMenu("Billing");
-		
+
 		mb.add(file);
 
 		itemmoney = new JMenuItem("Resort Account");
@@ -89,8 +89,8 @@ public class Main extends JFrame implements ActionListener
 				JOptionPane.showMessageDialog(null, "Account Balance \n" + resort.getResortAmount());
 			}
 		});
-		
-		
+
+
 
 
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -105,30 +105,10 @@ public class Main extends JFrame implements ActionListener
 		this.mainPanel.setLayout(null);
 		this.tabbedPane = new JTabbedPane();
 
-		// Create JLabels with time
-		this.toptext = new JLabel("Sunshine Project");
-		this.toptext.setBounds(1, 1, 400, 30);
-		this.toptext.setForeground(Color.YELLOW);
-		this.toptext.setFont(new Font("Nightclub BTN", Font.PLAIN, 25));
 
-		this.madeby = new JLabel("Made by Timmy, Farhiya, Hisayo, Kenneth, Peter og Matias");
-		this.madeby.setBounds(1, 25, 400, 30);
-		this.madeby.setForeground(Color.WHITE);
-		this.madeby.setFont(new Font("Nightclub BTN", Font.PLAIN, 12));
+		// Create time and made by + title
+		createTimeLabels();
 
-
-		this.lblWeek = new JLabel("Current Week: " + resort.getWeekNumber());
-		this.lblWeek.setFont(new Font("Nightclub BTN", Font.PLAIN, 13));
-		this.lblWeek.setBounds(1114, 382, 150, 23);
-		this.lblWeek.setForeground(Color.WHITE);
-
-		this.lblYear = new JLabel("Current Year: " + resort.getYear());
-		this.lblYear.setFont(new Font("Nightclub BTN", Font.PLAIN, 13));
-		this.lblYear.setBounds(1114, 416, 150, 23);
-		this.lblYear.setForeground(Color.WHITE);
-
-
-	
 		// Create tables in mainFrame.
 		createTables();
 
@@ -163,13 +143,39 @@ public class Main extends JFrame implements ActionListener
 		setVisible(true);
 	}
 
+	public void createTimeLabels()
+	{
+		// Create JLabels with time
+		this.toptext = new JLabel("Sunshine Project");
+		this.toptext.setBounds(1, 1, 400, 30);
+		this.toptext.setForeground(Color.YELLOW);
+		this.toptext.setFont(new Font("Nightclub BTN", Font.PLAIN, 25));
+
+		this.madeby = new JLabel("Made by Timmy, Farhiya, Hisayo, Kenneth, Peter og Matias");
+		this.madeby.setBounds(1, 25, 400, 30);
+		this.madeby.setForeground(Color.WHITE);
+		this.madeby.setFont(new Font("Nightclub BTN", Font.PLAIN, 12));
+
+
+		this.lblWeek = new JLabel("Current Week: " + resort.getWeekNumber());
+		this.lblWeek.setFont(new Font("Nightclub BTN", Font.PLAIN, 13));
+		this.lblWeek.setBounds(1114, 382, 150, 23);
+		this.lblWeek.setForeground(Color.WHITE);
+
+		this.lblYear = new JLabel("Current Year: " + resort.getYear());
+		this.lblYear.setFont(new Font("Nightclub BTN", Font.PLAIN, 13));
+		this.lblYear.setBounds(1114, 416, 150, 23);
+		this.lblYear.setForeground(Color.WHITE);
+	}
+
+
 	/**
 	 * Tabeller initialisere og oprettes
 	 */
 	public void createTables()
 	{
 		// Cottage table
-		this.cottageTable = new JTable(tableCreator.getCottageModel())
+		this.cottageTable = new JTable()
 		{
 			private static final long serialVersionUID = 1L;
 			public boolean isCellEditable(int rowIndex, int colIndex)
@@ -177,11 +183,12 @@ public class Main extends JFrame implements ActionListener
 				return false;
 			}
 		};
+		tableCreator.setCottageModel(this.cottageTable);
 		this.scrollPaneCottage = new JScrollPane(this.cottageTable);
 		this.cottageTable.setBackground(Color.WHITE);
 
 		// Customer table
-		this.customerTable = new JTable(tableCreator.getCustomerModel())
+		this.customerTable = new JTable()
 		{
 			private static final long serialVersionUID = 1L;
 			public boolean isCellEditable(int rowIndex, int colIndex)
@@ -189,10 +196,12 @@ public class Main extends JFrame implements ActionListener
 				return false;
 			}
 		};
+		this.tableCreator.setCustomerModel(this.customerTable);
 		this.scrollPaneCustomer = new JScrollPane(this.customerTable);
 		this.customerTable.setBackground(Color.WHITE);
+
 		// Reservation table
-		this.reservationTable = new JTable(tableCreator.getReservationModel())
+		this.reservationTable = new JTable()
 		{
 			private static final long serialVersionUID = 1L;
 			public boolean isCellEditable(int rowIndex, int colIndex)
@@ -200,10 +209,13 @@ public class Main extends JFrame implements ActionListener
 				return false;
 			}
 		};
+		this.tableCreator.setReservationModel(this.reservationTable);
 		this.scrollPaneReservation = new JScrollPane(this.reservationTable);
 		this.reservationTable.setBackground(Color.WHITE);
 	}
-	
+
+
+
 	/**
 	 * Knapper initialisere og oprettes.
 	 * @throws IOException
@@ -222,7 +234,7 @@ public class Main extends JFrame implements ActionListener
 		this.createReservationButton.setBounds(1114, 82, 150, 23);
 		this.createReservationButton.addActionListener(this);
 		this.mainPanel.add(createReservationButton);
-		
+
 		BufferedImage iconCustomer1 = ImageIO.read(new File("knapper/createcustomer1.png"));
 		BufferedImage iconCustomer2 = ImageIO.read(new File("knapper/createcustomer2.png"));
 		BufferedImage iconCustomer3 = ImageIO.read(new File("knapper/createcustomer3.png"));
@@ -234,7 +246,7 @@ public class Main extends JFrame implements ActionListener
 		this.createCustomerButton.setBounds(1114, 116, 150, 23);
 		this.createCustomerButton.addActionListener(this);
 		this.mainPanel.add(createCustomerButton);
-		
+
 		BufferedImage iconCottage1 = ImageIO.read(new File("knapper/createcottage1.png"));
 		BufferedImage iconCottage2 = ImageIO.read(new File("knapper/createcottage2.png"));
 		BufferedImage iconCottage3 = ImageIO.read(new File("knapper/createcottage3.png"));
@@ -274,7 +286,7 @@ public class Main extends JFrame implements ActionListener
 		this.payReservationButton.addActionListener(this);
 		this.payReservationButton.setEnabled(true);
 		this.mainPanel.add(this.payReservationButton);
-		
+
 		BufferedImage iconDelReservation1 = ImageIO.read(new File("knapper/deletereservation1.png"));
 		BufferedImage iconDelReservation2 = ImageIO.read(new File("knapper/deletereservation2.png"));
 		BufferedImage iconDelReservation3 = ImageIO.read(new File("knapper/deletereservation3.png"));
@@ -305,8 +317,8 @@ public class Main extends JFrame implements ActionListener
 		this.deleteCustomerButton.addActionListener(this);
 		this.deleteCustomerButton.setBackground(Color.WHITE);
 		this.mainPanel.add(deleteCustomerButton);
-		
-		
+
+
 		BufferedImage iconDelCottage1 = ImageIO.read(new File("knapper/deletecottage1.png"));
 		BufferedImage iconDelCottage2 = ImageIO.read(new File("knapper/deletecottage2.png"));
 		BufferedImage iconDelCottage3 = ImageIO.read(new File("knapper/deletecottage3.png"));
@@ -365,7 +377,7 @@ public class Main extends JFrame implements ActionListener
 		});
 		this.mainPanel.add(closeFrameButton);
 	}
-	
+
 	/**
 	 * Her oprettes combobox week og year
 	 */
@@ -417,7 +429,7 @@ public class Main extends JFrame implements ActionListener
 		this.resetCottageTableButton.setBounds(1100, 30, 150, 23);
 		this.resetCottageTableButton.setVisible(false);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -481,7 +493,7 @@ public class Main extends JFrame implements ActionListener
 		});
 	}
 
-	
+
 	/**
 	 * Her behandles alle aktioner fra knapper.
 	 */
@@ -531,33 +543,33 @@ public class Main extends JFrame implements ActionListener
 					resort.payReservation(ID);
 					updateReservationTable();
 				}
-			else
-				return;
-				}catch(ArrayIndexOutOfBoundsException excep)
-				{
-					JOptionPane.showMessageDialog(null, "You need to select a row in the table to registre payment!");
-				}
+				else
+					return;
+			}catch(ArrayIndexOutOfBoundsException excep)
+			{
+				JOptionPane.showMessageDialog(null, "You need to select a row in the table to registre payment!");
+			}
 		}
-		
+
 		if(e.getSource().equals(this.deleteReservationButton))
 		{
 			try{
 				int row = this.reservationTable.getSelectedRow();		
 				String ID = (String) this.reservationTable.getValueAt(row, 0);
-				
+
 				int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this reservation: \n" + ID);
-				
+
 				if(choice == JOptionPane.YES_OPTION)
 				{
 					Reservation r = this.resort.findReservation(ID);
 					r.getCottage().assignVancancy(r.getWeeks(), r.getYear());
-					
+
 					this.resort.deleteReservation(ID);
-					
+
 					updateReservationTable();
 				}else
 					return;
-				
+
 
 			}catch(ArrayIndexOutOfBoundsException excep)
 			{
@@ -624,8 +636,8 @@ public class Main extends JFrame implements ActionListener
 				JOptionPane.showMessageDialog(null, "You need to select a row in the table to delete a renovation!");
 			}
 		}
-		
-		
+
+
 	}
 
 
@@ -634,7 +646,7 @@ public class Main extends JFrame implements ActionListener
 	 */
 	public void updateCottageTable()
 	{
-		this.tableCreator.updateCottageModel(cottageTable);
+		this.tableCreator.setCottageModel(cottageTable);
 	}
 
 	/**
@@ -642,7 +654,7 @@ public class Main extends JFrame implements ActionListener
 	 */
 	public void updateCustomerTable()
 	{
-		this.tableCreator.updateCustomerModel(customerTable);
+		this.tableCreator.setCustomerModel(customerTable);
 	}
 
 	/**
@@ -650,7 +662,7 @@ public class Main extends JFrame implements ActionListener
 	 */
 	public void updateReservationTable()
 	{
-		this.tableCreator.updateReservationModel(reservationTable);
+		this.tableCreator.setReservationModel(reservationTable);
 	}
 
 	/**

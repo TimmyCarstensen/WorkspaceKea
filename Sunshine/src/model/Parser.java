@@ -24,24 +24,29 @@ public class Parser {
 	}
 	
 	/**
+	 * 
 	 * Lavet af Kenneth og Matias
-	 * @param customers
+	 * @param customers, tager array'et fra resort.
 	 */
 	public void readInFileCustomers(ArrayList<Customer> customers)
 	{
+		
 		File f = new File("customers");
 		try 
 		{
+			// Scanner sættes til at læse filen customers
 			this.input = new Scanner(f);
 
+			// Tjekker for om filen har en næste linje
 			while (input.hasNextLine())
 			{
 				// Læs næste linje i systemet
 				String line = input.nextLine();
 
+				// Linen splittes ud fra semikolon og sættes ind i et StringArray
 				String[] values = line.split(";");
 
-				// Objektet initialisere og indsættes i arrayList.
+				// Objektet initialiseres og indsættes i array'et fra inputtet.
 				if(values[0].equals("t"))
 				{
 					TuristCustomer turistCustomer = new TuristCustomer('t', values[1], values[2], values[3], values[4], values[5]);
