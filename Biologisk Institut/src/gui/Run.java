@@ -1,5 +1,6 @@
 package gui;
 
+import control.Control;
 import DBWrapper.Connections;
 
 public class Run {
@@ -9,10 +10,8 @@ public class Run {
 	 */
 	public static void main(String[] args) {
 		
-		Connections connect = new Connections();
+		new AbGUI();
 		
-		connect.insert("Testesen2");
-
 	}
 
 }
