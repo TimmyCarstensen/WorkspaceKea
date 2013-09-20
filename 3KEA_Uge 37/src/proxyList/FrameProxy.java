@@ -21,8 +21,7 @@ public class FrameProxy extends JFrame {
 	private JPanel contentPane;
 	private JTextField jTextField1;
 	private JTextField jTextField2;
-	private ProxyList thisList;
-	private List list1;
+	private ProxyList proxyList;
 
 	/**
 	 * Launch the application.
@@ -52,13 +51,13 @@ public class FrameProxy extends JFrame {
 		contentPane.setLayout(null);
 
 		// Init the ProxyList
-		thisList = new ProxyList();
+		proxyList = new ProxyList();
 
 		// Add JLabels
 		JLabel lblNewLabel = new JLabel("Text Item");
 		JLabel lblNewLabel_1 = new JLabel("Index");
-		lblNewLabel_1.setBounds(73, 221, 28, 14);
-		lblNewLabel.setBounds(54, 130, 47, 14);
+		lblNewLabel_1.setBounds(37, 221, 64, 14);
+		lblNewLabel.setBounds(37, 130, 64, 14);
 		contentPane.add(lblNewLabel);
 		contentPane.add(lblNewLabel_1);
 
@@ -134,37 +133,37 @@ public class FrameProxy extends JFrame {
 		btnNewButton_1.setBounds(393, 246, 89, 23);
 		contentPane.add(btnNewButton_1);
 
-		list1 = new List();
-		list1.setBounds(435, 53, 270, 183);
-		contentPane.add(list1);
+		
+		proxyList.setBounds(435, 53, 270, 183);
+		contentPane.add(proxyList);
 	}
 
 	public void add() {
-		thisList.add(jTextField1.getText());
+		proxyList.add(jTextField1.getText());
 	}
 
 	public void showAll() {
-		String T[] = thisList.getAll();
-		list1.removeAll();
+		String T[] = proxyList.getAll();
+		proxyList.removeAll();
 		for (int i = 0; i < T.length; i++) {
-			list1.add(T[i]);
+			proxyList.add(T[i]);
 		}
 	}
 
 	public void removeItem() {
-		thisList.remove(jTextField1.getText());
+		proxyList.remove(jTextField1.getText());
 	}
 
 	public void removeIndex() {
-		thisList.remove(Integer.parseInt(jTextField2.getText()));
+		proxyList.remove(Integer.parseInt(jTextField2.getText()));
 	}
 
 	public void getThis() {
-		jTextField1.setText(thisList.getItem(Integer.parseInt(jTextField2
+		jTextField1.setText(proxyList.getItem(Integer.parseInt(jTextField2
 				.getText())));
 	}
 
 	public void clearList() {
-		thisList.clearList();
+		proxyList.clearList();
 	}
 }

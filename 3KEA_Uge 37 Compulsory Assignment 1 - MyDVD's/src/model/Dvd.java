@@ -1,7 +1,7 @@
 package model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+
 
 public class Dvd implements Serializable {
 	/**
@@ -11,16 +11,16 @@ public class Dvd implements Serializable {
 	private String title;
 	private String instructor;
 	private String genre;
-	private ArrayList<String> leadActors;
+	private String[] leadActors;
 
 	public Dvd(String title, String instructor, String genre,
-			ArrayList<String> leadActors) {
+			String[] leadActors) {
 		this.title = title;
 		this.instructor = instructor;
 		this.genre = genre;
 		this.leadActors = leadActors;
 	}
-
+	
 	public String getTitle() {
 		return title;
 	}
@@ -45,11 +45,19 @@ public class Dvd implements Serializable {
 		this.genre = genre;
 	}
 
-	public ArrayList<String> getLeadActors() {
+	public String printAllLeadActors() {
+		String temp = "";
+		
+		for(String actor : leadActors)
+			temp += actor + ", ";
+		return temp;
+	}
+
+	public String[] getLeadActors() {
 		return leadActors;
 	}
 
-	public void setLeadActors(ArrayList<String> leadActors) {
+	public void setLeadActors(String[] leadActors) {
 		this.leadActors = leadActors;
 	}
 

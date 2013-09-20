@@ -1,43 +1,48 @@
 package proxyList;
 
-import java.awt.List;
-
-public class ProxyList implements IProxyList 
+public class ProxyList extends java.awt.List implements IProxyList 
 {
-	private List AList = new List();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public ProxyList (){
+		
+	}
 
 	@Override
 	public void add(String T) 
 	{
-		AList.add(T);
+		add(T);
 	}
 
 	@SuppressWarnings("finally")
 	@Override
-	public String remove(String T) 
+	public void remove(String T) 
 	{
 		String msg = "";
-		try {AList.remove(T);} 
+		try {remove(T);} 
 		catch(Exception e) {msg = "You can't remove non-existing item";} 
-		finally {return msg;}
+		finally {return;}
 	}
 
 	public void remove(int index) {
-		if (AList.getItemCount()>index && index>=0) AList.remove(index);
+		if (getItemCount()>index && index>=0) remove(index);
 		}
 
 	public String getItem(int index) 
 	{
-		return AList.getItem(index);    
+		return getItem(index);    
 	}
 
 	public void clearList()
 	{
-		AList.removeAll();    
+		removeAll();    
 	}
 
 	public String[] getAll() 
 	{
-		return AList.getItems();    
+		return getItems();    
 	}
 }
